@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "umd",
+		"moduleResolution": "node",
+		"removeComments": true,
+		"sourceMap": true,
+		"strict": true,
+		"alwaysStrict": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+
+		// Output config
+		"outDir": "./dist",
+
+		// Types to be included
+		"types": [
+			"node"
+		]
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/*.ts"
+	]
+}
