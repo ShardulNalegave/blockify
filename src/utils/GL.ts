@@ -1,17 +1,35 @@
 
+// Utils
 import { Vector } from './Vector'
 
+// Interface for GL utility
 export interface IGL {
+	// Canvas to render on
 	canvas: HTMLCanvasElement
+	// The WebGL2 Rendering Context
 	context: WebGL2RenderingContext | null
+
+	/**
+	 * Methods
+	 */
+
+	// Sets the size of canvas
 	setSize(size: Vector): void
 }
 
+// The GL utility class
 export class GL implements IGL {
 
+	/**
+	 * Class members
+	 */
 	public canvas: HTMLCanvasElement
 	public context: WebGL2RenderingContext | null
 
+	/**
+	 * Constructs a GL instance
+	 * @param canvas The canvas to render on
+	 */
 	public constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas
 		this.context = canvas.getContext("webgl2")
@@ -20,6 +38,10 @@ export class GL implements IGL {
 		}
 	}
 
+	/**
+	 * Sets the size of canvas
+	 * @param size The size to set in the form of a Vector
+	 */
 	public setSize(size: Vector) {
 		this.canvas.setAttribute("width", String(size.x))
 		this.canvas.setAttribute("height", String(size.y))
