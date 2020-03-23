@@ -24,7 +24,7 @@ export class GL implements IGL {
 	 * Class members
 	 */
 	public canvas: HTMLCanvasElement
-	public context: WebGL2RenderingContext | null
+	public context: WebGL2RenderingContext
 
 	/**
 	 * Constructs a GL instance
@@ -32,9 +32,11 @@ export class GL implements IGL {
 	 */
 	public constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas
-		this.context = canvas.getContext("webgl2")
-		if (this.context === null) {
+		let context: WebGL2RenderingContext | null = canvas.getContext("webgl2")
+		if (context === null) {
 			throw new Error("WebGL2 Cannot be initialized")
+		} else {
+			this.context = context
 		}
 	}
 

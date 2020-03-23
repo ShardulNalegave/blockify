@@ -26,13 +26,22 @@ export class Blockify {
 	}
 
 	/**
-	 * Main rendering loop
+	 * Start point for rendering
 	 */
 	public render() {
-		if (this.webgl.context) {
-			this.webgl.context.clearColor(0, 0, 0, 1)
-			this.webgl.context.clear(this.webgl.context.COLOR_BUFFER_BIT)
-		}
+		this.loop()
+	}
+
+	/**
+	 * The render loop
+	 */
+	private loop() {
+
+		this.webgl.context.clearColor(0, 0, 0, 1)
+		this.webgl.context.clear(this.webgl.context.COLOR_BUFFER_BIT)
+
+		// Request for animation frame
+		requestAnimationFrame(this.loop.bind(this))
 	}
 
 }
