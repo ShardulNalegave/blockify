@@ -94,7 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Blockify = (function () {\r\n    function Blockify(canvasSelector, width, height) {\r\n        this.canvas = null;\r\n        this.gl = null;\r\n        this.size = [300, 300];\r\n        this.size = [width, height];\r\n        this.getCanvas(canvasSelector);\r\n    }\r\n    Blockify.prototype.getCanvas = function (canvasSelector) {\r\n        this.canvas = document.querySelector(canvasSelector);\r\n        if (this.canvas) {\r\n            this.canvas.setAttribute(\"width\", String(this.size[0]));\r\n            this.canvas.setAttribute(\"height\", String(this.size[1]));\r\n            this.gl = this.canvas.getContext(\"webgl2\");\r\n        }\r\n    };\r\n    Blockify.prototype.render = function () {\r\n        if (this.gl) {\r\n            this.gl.clearColor(0, 0, 0, 1);\r\n            this.gl.clear(this.gl.COLOR_BUFFER_BIT);\r\n        }\r\n    };\r\n    return Blockify;\r\n}());\r\nexports.Blockify = Blockify;\r\n//# sourceMappingURL=Blockify.js.map\n\n//# sourceURL=webpack:///./dist/Blockify.js?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Vector_1 = __webpack_require__(/*! ./utils/Vector */ \"./dist/utils/Vector.js\");\r\nvar Blockify = (function () {\r\n    function Blockify(canvasSelector, width, height) {\r\n        this.canvas = null;\r\n        this.gl = null;\r\n        this.size = new Vector_1.Vector(300, 300);\r\n        this.size = new Vector_1.Vector(width, height);\r\n        this.getCanvas(canvasSelector);\r\n    }\r\n    Blockify.prototype.getCanvas = function (canvasSelector) {\r\n        this.canvas = document.querySelector(canvasSelector);\r\n        if (this.canvas) {\r\n            this.canvas.setAttribute(\"width\", String(this.size.x));\r\n            this.canvas.setAttribute(\"height\", String(this.size.y));\r\n            this.gl = this.canvas.getContext(\"webgl2\");\r\n        }\r\n    };\r\n    Blockify.prototype.render = function () {\r\n        if (this.gl) {\r\n            this.gl.clearColor(0, 0, 0, 1);\r\n            this.gl.clear(this.gl.COLOR_BUFFER_BIT);\r\n        }\r\n    };\r\n    return Blockify;\r\n}());\r\nexports.Blockify = Blockify;\r\n//# sourceMappingURL=Blockify.js.map\n\n//# sourceURL=webpack:///./dist/Blockify.js?");
 
 /***/ }),
 
@@ -107,6 +107,18 @@ eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nva
 
 "use strict";
 eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Blockify_1 = __webpack_require__(/*! ./Blockify */ \"./dist/Blockify.js\");\r\nvar blockify = new Blockify_1.Blockify(\"canvas#mainCanvas\", 600, 600);\r\nblockify.render();\r\n//# sourceMappingURL=main.js.map\n\n//# sourceURL=webpack:///./dist/main.js?");
+
+/***/ }),
+
+/***/ "./dist/utils/Vector.js":
+/*!******************************!*\
+  !*** ./dist/utils/Vector.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Vector = (function () {\r\n    function Vector(x, y) {\r\n        this.x = x;\r\n        this.y = y;\r\n    }\r\n    Vector.prototype.add = function (vec) {\r\n        var x_ = this.x + vec.x;\r\n        var y_ = this.y + vec.y;\r\n        return new Vector(x_, y_);\r\n    };\r\n    Vector.prototype.minus = function (vec) {\r\n        var x_ = this.x - vec.x;\r\n        var y_ = this.y - vec.y;\r\n        return new Vector(x_, y_);\r\n    };\r\n    Vector.prototype.multiply = function (vec) {\r\n        var x_ = this.x * vec.x;\r\n        var y_ = this.y * vec.y;\r\n        return new Vector(x_, y_);\r\n    };\r\n    Vector.prototype.divide = function (vec) {\r\n        var x_ = this.x / vec.x;\r\n        var y_ = this.y / vec.y;\r\n        return new Vector(x_, y_);\r\n    };\r\n    Vector.prototype.magnitude = function () {\r\n        var mag = Math.sqrt((this.x) ^ 2 + (this.y) ^ 2);\r\n        return mag;\r\n    };\r\n    return Vector;\r\n}());\r\nexports.Vector = Vector;\r\n//# sourceMappingURL=Vector.js.map\n\n//# sourceURL=webpack:///./dist/utils/Vector.js?");
 
 /***/ })
 
