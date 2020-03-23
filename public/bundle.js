@@ -106,7 +106,7 @@ eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nva
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Blockify_1 = __webpack_require__(/*! ./Blockify */ \"./dist/Blockify.js\");\r\nvar screenDimensions = {\r\n    width: window.innerWidth,\r\n    height: window.innerHeight\r\n};\r\nvar canvas = document.querySelector(\"canvas#mainCanvas\");\r\nvar blockify = new Blockify_1.Blockify(canvas, screenDimensions.width, screenDimensions.height);\r\nwindow.onresize = function () {\r\n    blockify.updateCanvasSize(window.innerWidth, window.innerHeight);\r\n};\r\nblockify.render();\r\n//# sourceMappingURL=main.js.map\n\n//# sourceURL=webpack:///./dist/main.js?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Blockify_1 = __webpack_require__(/*! ./Blockify */ \"./dist/Blockify.js\");\r\nvar screenDimensions = {\r\n    width: window.innerWidth,\r\n    height: window.innerHeight\r\n};\r\nvar canvas = document.querySelector(\"canvas#mainCanvas\");\r\nvar blockify = new Blockify_1.Blockify(canvas, screenDimensions.width, screenDimensions.height);\r\nwindow.addEventListener(\"resize\", function () {\r\n    blockify.updateCanvasSize(window.innerWidth, window.innerHeight);\r\n});\r\nblockify.render();\r\n//# sourceMappingURL=main.js.map\n\n//# sourceURL=webpack:///./dist/main.js?");
 
 /***/ }),
 

@@ -13,9 +13,9 @@ const canvas: HTMLCanvasElement = <HTMLCanvasElement> document.querySelector("ca
 const blockify: Blockify = new Blockify(canvas, screenDimensions.width, screenDimensions.height)
 
 // Window events
-window.onresize = () => {
+window.addEventListener("resize", () => {
 	blockify.updateCanvasSize(window.innerWidth, window.innerHeight)
-}
+})
 
 // Run the render loop
 blockify.render()
