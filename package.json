@@ -7,5 +7,8 @@
   "dependencies": {
     "@types/node": "^13.9.3",
     "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "build": "tsc -w"
   }
 }
