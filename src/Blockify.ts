@@ -26,6 +26,16 @@ export class Blockify {
 	}
 
 	/**
+	 * Updates the size of the canvas
+	 * @param width The new width
+	 * @param height The new height
+	 */
+	public updateCanvasSize(width: number, height: number) {
+		this.size = new Vector(width, height)
+		this.webgl.setSize(this.size)
+	}
+
+	/**
 	 * Start point for rendering
 	 */
 	public render() {
