@@ -94,7 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Vector_1 = __webpack_require__(/*! ./utils/Vector */ \"./dist/utils/Vector.js\");\r\nvar Blockify = (function () {\r\n    function Blockify(canvasSelector, width, height) {\r\n        this.canvas = null;\r\n        this.gl = null;\r\n        this.size = new Vector_1.Vector(300, 300);\r\n        this.size = new Vector_1.Vector(width, height);\r\n        this.getCanvas(canvasSelector);\r\n    }\r\n    Blockify.prototype.getCanvas = function (canvasSelector) {\r\n        this.canvas = document.querySelector(canvasSelector);\r\n        if (this.canvas) {\r\n            this.canvas.setAttribute(\"width\", String(this.size.x));\r\n            this.canvas.setAttribute(\"height\", String(this.size.y));\r\n            this.gl = this.canvas.getContext(\"webgl2\");\r\n        }\r\n    };\r\n    Blockify.prototype.render = function () {\r\n        if (this.gl) {\r\n            this.gl.clearColor(0, 0, 0, 1);\r\n            this.gl.clear(this.gl.COLOR_BUFFER_BIT);\r\n        }\r\n    };\r\n    return Blockify;\r\n}());\r\nexports.Blockify = Blockify;\r\n//# sourceMappingURL=Blockify.js.map\n\n//# sourceURL=webpack:///./dist/Blockify.js?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Vector_1 = __webpack_require__(/*! ./utils/Vector */ \"./dist/utils/Vector.js\");\r\nvar GL_1 = __webpack_require__(/*! ./utils/GL */ \"./dist/utils/GL.js\");\r\nvar Blockify = (function () {\r\n    function Blockify(canvas, width, height) {\r\n        this.size = new Vector_1.Vector(300, 300);\r\n        this.size = new Vector_1.Vector(width, height);\r\n        this.webgl = new GL_1.GL(canvas);\r\n        this.webgl.setSize(this.size);\r\n    }\r\n    Blockify.prototype.render = function () {\r\n        if (this.webgl.context) {\r\n            this.webgl.context.clearColor(0, 0, 0, 1);\r\n            this.webgl.context.clear(this.webgl.context.COLOR_BUFFER_BIT);\r\n        }\r\n    };\r\n    return Blockify;\r\n}());\r\nexports.Blockify = Blockify;\r\n//# sourceMappingURL=Blockify.js.map\n\n//# sourceURL=webpack:///./dist/Blockify.js?");
 
 /***/ }),
 
@@ -106,7 +106,19 @@ eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nva
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Blockify_1 = __webpack_require__(/*! ./Blockify */ \"./dist/Blockify.js\");\r\nvar blockify = new Blockify_1.Blockify(\"canvas#mainCanvas\", 600, 600);\r\nblockify.render();\r\n//# sourceMappingURL=main.js.map\n\n//# sourceURL=webpack:///./dist/main.js?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar Blockify_1 = __webpack_require__(/*! ./Blockify */ \"./dist/Blockify.js\");\r\nvar canvas = document.querySelector(\"canvas#mainCanvas\");\r\nvar blockify = new Blockify_1.Blockify(canvas, 600, 600);\r\nblockify.render();\r\n//# sourceMappingURL=main.js.map\n\n//# sourceURL=webpack:///./dist/main.js?");
+
+/***/ }),
+
+/***/ "./dist/utils/GL.js":
+/*!**************************!*\
+  !*** ./dist/utils/GL.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nvar GL = (function () {\r\n    function GL(canvas) {\r\n        this.canvas = canvas;\r\n        this.context = canvas.getContext(\"webgl2\");\r\n        if (this.context === null) {\r\n            throw new Error(\"WebGL2 Cannot be initialized\");\r\n        }\r\n    }\r\n    GL.prototype.setSize = function (size) {\r\n        this.canvas.setAttribute(\"width\", String(size.x));\r\n        this.canvas.setAttribute(\"height\", String(size.y));\r\n    };\r\n    return GL;\r\n}());\r\nexports.GL = GL;\r\n//# sourceMappingURL=GL.js.map\n\n//# sourceURL=webpack:///./dist/utils/GL.js?");
 
 /***/ }),
 

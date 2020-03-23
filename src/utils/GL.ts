@@ -1,7 +1,10 @@
 
+import { Vector } from './Vector'
+
 export interface IGL {
 	canvas: HTMLCanvasElement
 	context: WebGL2RenderingContext | null
+	setSize(size: Vector): void
 }
 
 export class GL implements IGL {
@@ -15,6 +18,11 @@ export class GL implements IGL {
 		if (this.context === null) {
 			throw new Error("WebGL2 Cannot be initialized")
 		}
+	}
+
+	public setSize(size: Vector) {
+		this.canvas.setAttribute("width", String(size.x))
+		this.canvas.setAttribute("height", String(size.y))
 	}
 
 }
