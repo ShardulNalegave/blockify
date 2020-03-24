@@ -2,6 +2,7 @@
 // Imports
 import p5 from 'p5'
 import { Blockify } from "./Blockify"
+import { BlocksPanel } from './components/BlocksPanel'
 
 // Global variables
 let screenDimensions = {
@@ -22,6 +23,11 @@ function main(p: p5) {
 	window.addEventListener("resize", () => {
 		blockify.updateCanvasSize(window.innerWidth, window.innerHeight)
 	})
+
+	// Components
+	const panel = new BlocksPanel()
+
+	blockify.attachComponent(panel)
 
 	// Run the render loop
 	blockify.render()

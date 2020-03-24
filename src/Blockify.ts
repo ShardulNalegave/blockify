@@ -3,6 +3,7 @@
 import p5 from 'p5'
 import { Vector } from './utils/Vector'
 import { Plotter } from './utils/Plotter'
+import { Component } from './components/Component'
 
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
@@ -23,10 +24,12 @@ export class Blockify implements IBlockify {
 	/**
 	 * Class Members
 	 */
+
 	private sketch: p5
 	private size: Vector = new Vector(300, 300)
 	private parent: HTMLElement | undefined
 	private plotter: Plotter
+	private attachedComponents: Component[] = []
 
 	/**
 	 * Constructs a Blockify instance
@@ -59,6 +62,10 @@ export class Blockify implements IBlockify {
 		// Mouse Pressed
 		this.sketch.mouseClicked = () => {
 			this.mouseClicked()
+			for (let i = 0; i < this.attachedComponents.length; i++) {
+				const component = this.attachedComponents[i];
+				component.mouseClicked()
+			}
 		}
 	}
 
@@ -96,5 +103,21 @@ export class Blockify implements IBlockify {
 	 */
 
 	private mouseClicked(): void {}
+
+
+	/**
+	 * User Methods
+	 */
+
+	/**
+	 * Attachs a component to the blockify app
+	 * @param component The component to be added
+	 */
+	public attachComponent(component: Component): void {
+		// Attach the sketch and plotter
+		component.attachSketch(this.sketch, this.plotter)
+		// Add the component to attached components array
+		this.attachedComponents.push(component)
+	}
 
 }
