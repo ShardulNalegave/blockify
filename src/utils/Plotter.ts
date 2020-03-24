@@ -2,6 +2,7 @@
 // Imports
 import p5 from 'p5'
 import { Vector } from './Vector'
+import { Color } from './Colors'
 
 // Interface for Plotter class
 export interface IPlotter {
@@ -14,6 +15,12 @@ export interface IPlotter {
 
 	triangle(a: Vector, b: Vector, c: Vector): void
 	rectangle(corner: Vector, scale: Vector): void
+
+	/**
+	 * Other Methods
+	 */
+
+	useColor(color: Color): void
 
 }
 
@@ -76,6 +83,19 @@ export class Plotter implements IPlotter {
 			// Draw the rect at new origin with the given scale
 			sketch.rect(0, 0, scale.x, scale.y)
 		})
+	}
+
+
+	/**
+	 * Other Methods
+	 */
+
+	/**
+	 * Sets the color to use for renderinf
+	 * @param color The color to set
+	 */
+	public useColor(color: Color) {
+		this.sketch.fill(color.r, color.g, color.b)
 	}
 
 }
