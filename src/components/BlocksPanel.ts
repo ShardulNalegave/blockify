@@ -2,6 +2,7 @@
 import p5 from 'p5'
 import { Component } from './Component'
 import { Plotter } from './../utils/Plotter'
+import { Vector } from '../utils/Vector'
 
 export class BlocksPanel implements Component {
 
@@ -15,7 +16,11 @@ export class BlocksPanel implements Component {
 		this.plotter = plotter
 	}
 
-	public render(): void {}
+	public render(): void {
+		if (this.plotter && this.sketch) {
+			this.plotter.rectangle(new Vector(0, 0), new Vector(this.sketch.width, 20))
+		}
+	}
 
 	public mouseClicked(): void {
 		console.log("abcxyz...")

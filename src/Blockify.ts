@@ -63,7 +63,7 @@ export class Blockify implements IBlockify {
 		this.sketch.mouseClicked = () => {
 			this.mouseClicked()
 			for (let i = 0; i < this.attachedComponents.length; i++) {
-				const component = this.attachedComponents[i];
+				const component: Component = this.attachedComponents[i]
 				component.mouseClicked()
 			}
 		}
@@ -94,7 +94,10 @@ export class Blockify implements IBlockify {
 	 */
 	private loop() {
 		this.sketch.background(0)
-		this.plotter.rectangle(new Vector(this.sketch.width/2, this.sketch.height/2).minus(new Vector(100, 100)), new Vector(200, 200))
+		for (let i = 0; i < this.attachedComponents.length; i++) {
+			const component: Component = this.attachedComponents[i]
+			component.render()
+		}
 	}
 
 
