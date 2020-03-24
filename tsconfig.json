@@ -4,7 +4,6 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"removeComments": true,
-		"sourceMap": true,
 		"strict": true,
 		"alwaysStrict": true,
 		"esModuleInterop": true,

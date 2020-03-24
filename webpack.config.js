@@ -5,7 +5,7 @@ module.exports = {
 	entry: "./dist/main.js",
 	mode: "development",
 	output: {
-		filename: "bundle.js",
+		filename: "main.js",
 		path: path.join(__dirname, "public")
 	}	
 }
