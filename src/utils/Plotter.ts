@@ -1,11 +1,12 @@
 
 // Imports
+import p5 from 'p5'
 import { Vector } from './Vector'
 
 // Interface for Plotter class
 export interface IPlotter {
 
-	withOrigin(pos: Vector): void
+	withOrigin(pos: Vector, callback: Function): void
 
 	/**
 	 * Shapes
@@ -17,18 +18,37 @@ export interface IPlotter {
 }
 
 // Plotter Class
-@staticImplements<IPlotter>()
-export class Plotter {
+export class Plotter implements IPlotter {
 
-	public static withOrigin(pos: Vector) {}
+	/**
+	 * Class Members
+	 */
+	private sketch: p5
 
-	public static triangle(a: Vector, b: Vector, c: Vector) {}
+	public constructor(sketch: p5) {
+		this.sketch = sketch
+	}
 
-	public static rectangle(corner: Vector, scale: Vector) {}
+	public withOrigin(pos: Vector, callback: Function) {
+		this.sketch.push()
+		this.sketch.translate(pos.x, pos.y)
+		callback(this.sketch)
+		this.sketch.pop()
+	}
 
-}
+	public triangle(a: Vector, b: Vector, c: Vector) {
+		this.sketch.triangle(
+			a.x, a.y,
+			b.x, b.y,
+			c.x, c.y
+		)
+	}
 
-// Extras
-function staticImplements<T>() {
-	return <U extends T>(constructor: U) => {constructor};
+	public rectangle(corner: Vector, scale: Vector) {
+		this.withOrigin(corner, (sketch: p5) => {
+			sketch.rectMode(sketch.CORNER)
+			sketch.rect(0, 0, scale.x, scale.y)
+		})
+	}
+
 }
