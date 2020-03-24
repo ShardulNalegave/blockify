@@ -51,6 +51,15 @@ export class Blockify implements IBlockify {
 		this.sketch.draw = () => {
 			this.loop()
 		}
+
+		/**
+		 * Mouse Events
+		 */
+
+		// Mouse Pressed
+		this.sketch.mouseClicked = () => {
+			this.mouseClicked()
+		}
 	}
 
 	/**
@@ -80,5 +89,12 @@ export class Blockify implements IBlockify {
 		this.sketch.background(0)
 		this.plotter.rectangle(new Vector(this.sketch.width/2, this.sketch.height/2).minus(new Vector(100, 100)), new Vector(200, 200))
 	}
+
+
+	/**
+	 * Other Events
+	 */
+
+	private mouseClicked(): void {}
 
 }
