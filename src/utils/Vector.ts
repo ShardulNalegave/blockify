@@ -2,9 +2,9 @@
 // Interface for Vectors
 export interface IVector {
 	// The x co-ordinate
-	x: number,
+	x: number
 	// The y co-ordinate
-	y: number,
+	y: number
 
 	/**
 	 * Operations 

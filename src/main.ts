@@ -14,7 +14,8 @@ function main(p: p5) {
 	const appDiv: HTMLCanvasElement = <HTMLCanvasElement> document.querySelector("div#app")
 	const blockify: Blockify = new Blockify(p, {
 		width: screenDimensions.width,
-		height: screenDimensions.height
+		height: screenDimensions.height,
+		parent: appDiv
 	})
 
 	// Window events

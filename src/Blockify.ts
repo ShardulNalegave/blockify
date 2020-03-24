@@ -6,17 +6,25 @@ import p5 from 'p5'
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
 	width: number,
-	height: number
+	height: number,
+	parent?: HTMLElement
+}
+
+// Interface for main Blockify class
+export interface IBlockify {
+	updateCanvasSize(width: number, height: number): void
+	render(): void
 }
 
 // The Blockify Class
-export class Blockify {
+export class Blockify implements IBlockify {
 
 	/**
 	 * Class Members
 	 */
 	private sketch: p5
 	private size: Vector = new Vector(300, 300)
+	private parent: HTMLElement | undefined
 
 	/**
 	 * Constructs a Blockify instance
@@ -27,9 +35,11 @@ export class Blockify {
 		this.sketch = p5Instance
 		let {
 			width,
-			height
+			height,
+			parent
 		} = options
 		this.size = new Vector(width, height)
+		this.parent = parent
 		
 		// Register sketch events to local methods
 		this.sketch.setup = () => {
@@ -54,7 +64,10 @@ export class Blockify {
 	 * Start point for rendering
 	 */
 	public render() {
-		this.sketch.createCanvas(this.size.x, this.size.y)
+		let canvas = this.sketch.createCanvas(this.size.x, this.size.y)
+		if (this.parent) {
+			canvas.parent(this.parent)
+		}
 	}
 
 	/**
