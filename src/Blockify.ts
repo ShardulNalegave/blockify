@@ -1,7 +1,8 @@
 
 // Utils
-import { Vector } from './utils/Vector'
 import p5 from 'p5'
+import { Vector } from './utils/Vector'
+import { Plotter } from './utils/Plotter'
 
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
@@ -25,6 +26,7 @@ export class Blockify implements IBlockify {
 	private sketch: p5
 	private size: Vector = new Vector(300, 300)
 	private parent: HTMLElement | undefined
+	private plotter: Plotter
 
 	/**
 	 * Constructs a Blockify instance
@@ -33,6 +35,7 @@ export class Blockify implements IBlockify {
 	 */
 	public constructor(p5Instance: p5, options: IBlockifyOptions) {
 		this.sketch = p5Instance
+		this.plotter = new Plotter(this.sketch)
 		let {
 			width,
 			height,
@@ -75,6 +78,7 @@ export class Blockify implements IBlockify {
 	 */
 	private loop() {
 		this.sketch.background(0)
+		this.plotter.rectangle(new Vector(this.sketch.width/2, this.sketch.height/2).minus(new Vector(100, 100)), new Vector(200, 200))
 	}
 
 }
