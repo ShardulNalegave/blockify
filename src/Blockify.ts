@@ -3,6 +3,12 @@
 import { Vector } from './utils/Vector'
 import p5 from 'p5'
 
+// The interface for the options passed to Blockify during intialization
+export interface IBlockifyOptions {
+	width: number,
+	height: number
+}
+
 // The Blockify Class
 export class Blockify {
 
@@ -14,13 +20,24 @@ export class Blockify {
 
 	/**
 	 * Constructs a Blockify instance
-	 * @param canvas The canvas to render on
-	 * @param width The width of canvas
-	 * @param height The height of canvas
+	 * @param p5Instance p5.js Instance to use
+	 * @param options Options to configure Blockify
 	 */
-	public constructor(p5Instance: p5, width: number, height: number) {
-		this.size = new Vector(width, height)
+	public constructor(p5Instance: p5, options: IBlockifyOptions) {
 		this.sketch = p5Instance
+		let {
+			width,
+			height
+		} = options
+		this.size = new Vector(width, height)
+		
+		// Register sketch events to local methods
+		this.sketch.setup = () => {
+			this.render()
+		}
+		this.sketch.draw = () => {
+			this.loop()
+		}
 	}
 
 	/**
@@ -30,19 +47,21 @@ export class Blockify {
 	 */
 	public updateCanvasSize(width: number, height: number) {
 		this.size = new Vector(width, height)
+		this.sketch.resizeCanvas(this.size.x, this.size.y)
 	}
 
 	/**
 	 * Start point for rendering
 	 */
 	public render() {
-		this.loop()
+		this.sketch.createCanvas(this.size.x, this.size.y)
 	}
 
 	/**
 	 * The render loop
 	 */
 	private loop() {
+		this.sketch.background(0)
 	}
 
 }

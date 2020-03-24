@@ -12,7 +12,10 @@ let screenDimensions = {
 function main(p: p5) {
 	// Get the canvas and initialize Blockify
 	const appDiv: HTMLCanvasElement = <HTMLCanvasElement> document.querySelector("div#app")
-	const blockify: Blockify = new Blockify(p, screenDimensions.width, screenDimensions.height)
+	const blockify: Blockify = new Blockify(p, {
+		width: screenDimensions.width,
+		height: screenDimensions.height
+	})
 
 	// Window events
 	window.addEventListener("resize", () => {
