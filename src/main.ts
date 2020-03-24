@@ -1,5 +1,6 @@
 
 // Imports
+import p5 from 'p5'
 import { Blockify } from "./Blockify"
 
 // Global variables
@@ -8,14 +9,18 @@ let screenDimensions = {
 	height: window.innerHeight
 }
 
-// Get the canvas and initialize Blockify
-const canvas: HTMLCanvasElement = <HTMLCanvasElement> document.querySelector("canvas#mainCanvas")
-const blockify: Blockify = new Blockify(canvas, screenDimensions.width, screenDimensions.height)
+function main(p: p5) {
+	// Get the canvas and initialize Blockify
+	const appDiv: HTMLCanvasElement = <HTMLCanvasElement> document.querySelector("div#app")
+	const blockify: Blockify = new Blockify(p, screenDimensions.width, screenDimensions.height)
 
-// Window events
-window.addEventListener("resize", () => {
-	blockify.updateCanvasSize(window.innerWidth, window.innerHeight)
-})
+	// Window events
+	window.addEventListener("resize", () => {
+		blockify.updateCanvasSize(window.innerWidth, window.innerHeight)
+	})
 
-// Run the render loop
-blockify.render()
+	// Run the render loop
+	blockify.render()
+}
+
+new p5(main)

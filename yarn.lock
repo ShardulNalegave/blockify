@@ -7,6 +7,16 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.3.tgz#6356df2647de9eac569f9a52eda3480fa9e70b4d"
   integrity sha512-01s+ac4qerwd6RHD+mVbOEsraDHSgUaefQlEdBbUolnQFjKwCr7luvAlEwW1RFojh67u0z4OUTjPn9LEl4zIkA==
 
+"@types/p5@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@types/p5/-/p5-0.9.0.tgz#aea0afe6ab2f7368b000165a27869cee8f9060a7"
+  integrity sha512-GhI0ctGdKlnf1oUEYqE+sTWuGHhjQCZXQPxazdI9Lx2eE6z7qO6T55FGFenOY3wpL8jSzLWRmt83RHGblr4AWg==
+
+p5@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/p5/-/p5-1.0.0.tgz#d27c77c1c11450ede27af4614a5d24470ffab0c4"
+  integrity sha512-SYYc6NSHA/mMoF00SdI39FmhifMWl0B74/Bg3T793v+KOAWgXsBfr7snv9cjHFqpcmjtJMuZSOoA55qAETCu1w==
+
 typescript@^3.8.3:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
