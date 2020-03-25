@@ -8,6 +8,8 @@
 		"alwaysStrict": true,
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
+		"declaration": true,
+		"declarationDir": "./dist/@types",
 
 		// Output config
 		"outDir": "./dist",
