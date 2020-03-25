@@ -26,8 +26,7 @@ function main(p: p5) {
 
 	// Components
 	const panel = new BlocksPanel()
-
-	blockify.attachComponent(panel)
+	blockify.attachBlocksPanel(panel)
 
 	// Run the render loop
 	blockify.render()

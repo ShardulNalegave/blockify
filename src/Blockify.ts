@@ -16,6 +16,8 @@ export interface IBlockifyOptions {
 export interface IBlockify {
 	updateCanvasSize(width: number, height: number): void
 	render(): void
+	attachBlocksCanvas(component: IComponent): void
+	attachBlocksPanel(component: IComponent): void
 }
 
 // The Blockify Class
@@ -29,7 +31,8 @@ export class Blockify implements IBlockify {
 	private size: Vector = new Vector(300, 300)
 	private parent: HTMLElement | undefined
 	private plotter: Plotter
-	private attachedComponents: IComponent[] = []
+	private blocksCanvas: IComponent | null = null
+	private blocksPanel: IComponent | null = null
 
 	/**
 	 * Constructs a Blockify instance
@@ -62,14 +65,8 @@ export class Blockify implements IBlockify {
 		// Mouse Pressed
 		this.sketch.mouseClicked = () => {
 			this.mouseClicked()
-			// Loop through all the components in reversed order
-			// Note:- The array is reversed so that the topmost element receives the event first
-			let components: IComponent[] = this.attachedComponents.reverse()
-			for (let i = 0; i < components.length; i++) {
-				const component: IComponent = components[i]
-				// If the event belongs to the current component then break the loop
-				if (component.mouseClicked()) break
-			}
+			this.blocksPanel?.mouseClicked()
+			this.blocksCanvas?.mouseClicked()
 		}
 	}
 
@@ -98,12 +95,8 @@ export class Blockify implements IBlockify {
 	 */
 	private loop() {
 		this.sketch.background(0)
-		// Loop through all the components to render
-		// Note:- This way the last member of array will be the topmost component on the canvas
-		for (let i = 0; i < this.attachedComponents.length; i++) {
-			const component: IComponent = this.attachedComponents[i]
-			component.render()
-		}
+		this.blocksCanvas?.render()
+		this.blocksPanel?.render()
 	}
 
 
@@ -119,14 +112,25 @@ export class Blockify implements IBlockify {
 	 */
 
 	/**
-	 * Attachs a component to the blockify app
-	 * @param component The component to be added
+	 * Attachs Blocks Panel component to Blockify
+	 * @param component The Block Panel component to be added
 	 */
-	public attachComponent(component: IComponent): void {
+	public attachBlocksPanel(component: IComponent): void {
 		// Attach the sketch and plotter
 		component.attachSketch(this.sketch, this.plotter)
-		// Add the component to attached components array
-		this.attachedComponents.push(component)
+		// Set it
+		this.blocksPanel = component
+	}
+
+	/**
+	 * Attachs Blocks Canvas component to Blockify
+	 * @param component The Block Canvas component to be added
+	 */
+	public attachBlocksCanvas(component: IComponent): void {
+		// Attach the sketch and plotter
+		component.attachSketch(this.sketch, this.plotter)
+		// Set it
+		this.blocksCanvas = component
 	}
 
 }
