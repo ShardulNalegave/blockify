@@ -2,8 +2,8 @@
 // Imports
 import p5 from 'p5'
 import { Blockify } from "./Blockify"
-import { Block } from './Block'
 import { Vector } from './utils/Vector'
+import { StartBlock } from './blocks/Start'
 
 // Global variables
 let screenDimensions = {
@@ -26,7 +26,7 @@ function main(p: p5) {
 	})
 
 	// Blocks
-	let block = new Block(new Vector(200, 200), new Vector(100, 100))
+	let block = new StartBlock(new Vector(200, 200), new Vector(100, 100))
 	blockify.addBlock(block)
 
 	// Run the render loop

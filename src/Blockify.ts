@@ -3,7 +3,7 @@
 import p5 from 'p5'
 import { Vector } from './utils/Vector'
 import { Plotter } from './utils/Plotter'
-import { Block } from './Block'
+import { Block } from './blocks/Block'
 
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
@@ -61,10 +61,22 @@ export class Blockify implements IBlockify {
 
 		// Mouse Pressed
 		this.sketch.mouseClicked = () => {
-			this.mouseClicked()
-			this.blocks.forEach(block => {
-				block.mouseClicked()
-			})
+			for (let i = 0; i < this.blocks.length; i++) {
+				const block = this.blocks[i];
+				if (block.mouseClicked(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
+					break
+				}
+			}
+		}
+
+		// Mouse Dragged
+		this.sketch.mouseDragged = () => {
+			for (let i = 0; i < this.blocks.length; i++) {
+				const block = this.blocks[i];
+				if (block.mouseDragged(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
+					break
+				}
+			}
 		}
 	}
 
@@ -97,13 +109,6 @@ export class Blockify implements IBlockify {
 			block.render()
 		})
 	}
-
-
-	/**
-	 * Other Events
-	 */
-
-	private mouseClicked(): void {}
 
 
 	public addBlock(block: Block): void {
