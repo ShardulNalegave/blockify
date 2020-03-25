@@ -14,9 +14,8 @@ export class Dropdown extends Component implements IComponent {
 
 	public render(): void {
 		if (this.plotter && this.sketch) {
-			this.plotter.useBorder(new NoBorder())
-			this.plotter.useColor(Colors.Red[500])
-			this.plotter.rectangle(new Vector(0, 0), new Vector(this.sketch.width/2, 60))
+			this.plotter.useColor(Colors.Grey[800])
+			this.plotter.rectangle(new Vector(10, 10), new Vector(100, 30), 5)
 		}
 	}
 

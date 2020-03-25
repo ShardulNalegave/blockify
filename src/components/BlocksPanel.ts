@@ -16,10 +16,6 @@ export class BlocksPanel extends Component implements IComponent {
 
 	public render(): void {
 		if (this.plotter && this.sketch) {
-			this.plotter.useBorder(new Border(Colors.Red[800], 5))
-			this.plotter.useColor(Colors.Teal[800])
-			this.plotter.rectangle(new Vector(0, 0), new Vector(this.sketch.width, 60))
-
 			this.renderComponents()
 		}
 	}

@@ -5,6 +5,14 @@ import { Vector } from './Vector'
 import { Color } from './Colors'
 import { IBorder } from './Border'
 
+// Interface for Text options
+export interface ITextOptions {
+	pos: Vector,
+	size: number,
+	color?: Color,
+	boxScale?: Vector
+}
+
 // Interface for Plotter class
 export interface IPlotter {
 
@@ -15,7 +23,9 @@ export interface IPlotter {
 	 */
 
 	triangle(a: Vector, b: Vector, c: Vector): void
-	rectangle(corner: Vector, scale: Vector): void
+	rectangle(corner: Vector, scale: Vector, borderRadius: number): void
+
+	text(text: string, options: ITextOptions): void
 
 	/**
 	 * Other Methods
@@ -77,13 +87,35 @@ export class Plotter implements IPlotter {
 	 * @param corner The position of the top-left corner
 	 * @param scale The width and height of the rectangle
 	 */
-	public rectangle(corner: Vector, scale: Vector) {
+	public rectangle(corner: Vector, scale: Vector, borderRadius: number = 0) {
 		// Shift the origin to the position of the corner
 		this.withOrigin(corner, (sketch: p5) => {
 			// Set rectMode to Corner so that drawing starts from corner
 			sketch.rectMode(sketch.CORNER)
 			// Draw the rect at new origin with the given scale
-			sketch.rect(0, 0, scale.x, scale.y)
+			sketch.rect(0, 0, scale.x, scale.y, borderRadius)
+		})
+	}
+
+	/**
+	 * Renders text on canvas
+	 * @param text The text to render
+	 * @param options Options for rendering (ITextOptions)
+	 */
+	public text(text: string, options: ITextOptions): void {
+		this.withOrigin(options.pos, (sketch: p5) => {
+			sketch.rectMode(sketch.CORNER)
+			sketch.textSize(options.size)
+			if (options.color) {
+				sketch.fill(options.color.r, options.color.g, options.color.b)
+			} else {
+				sketch.fill(0)
+			}
+			if (options.boxScale) {
+				sketch.text(text, options.pos.x, options.pos.y, options.boxScale.x, options.boxScale.y)
+			} else {
+				sketch.text(text, options.pos.x, options.pos.y)
+			}
 		})
 	}
 
