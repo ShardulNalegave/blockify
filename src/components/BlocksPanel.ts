@@ -5,6 +5,8 @@ import { Vector } from '../utils/Vector'
 import { Colors } from '../utils/Colors'
 import { Border } from './../utils/Border'
 
+import { Dropdown } from './ui/Dropdown'
+
 // Blocks Panel class
 export class BlocksPanel extends Component implements IComponent {
 
