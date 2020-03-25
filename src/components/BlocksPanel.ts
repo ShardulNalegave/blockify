@@ -1,23 +1,15 @@
 
 // Imports
-import p5 from 'p5'
-import { Component } from './Component'
-import { Plotter } from './../utils/Plotter'
+import { Component, IComponent } from './Component'
 import { Vector } from '../utils/Vector'
 import { Colors } from '../utils/Colors'
 import { Border } from './../utils/Border'
 
 // Blocks Panel class
-export class BlocksPanel implements Component {
+export class BlocksPanel extends Component implements IComponent {
 
-	private sketch: p5 | null = null
-	private plotter: Plotter | null = null
-
-	public constructor() {}
-
-	public attachSketch(sketch: p5, plotter: Plotter): void {
-		this.sketch = sketch
-		this.plotter = plotter
+	public constructor() {
+		super()
 	}
 
 	public render(): void {
