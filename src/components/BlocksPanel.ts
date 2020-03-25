@@ -20,8 +20,9 @@ export class BlocksPanel extends Component implements IComponent {
 		}
 	}
 
-	public mouseClicked(): void {
+	public mouseClicked(): boolean {
 		console.log("abcxyz...")
+		return true
 	}
 
 }

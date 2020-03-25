@@ -3,7 +3,7 @@
 import p5 from 'p5'
 import { Vector } from './utils/Vector'
 import { Plotter } from './utils/Plotter'
-import { Component } from './components/Component'
+import { IComponent } from './components/Component'
 
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
@@ -29,7 +29,7 @@ export class Blockify implements IBlockify {
 	private size: Vector = new Vector(300, 300)
 	private parent: HTMLElement | undefined
 	private plotter: Plotter
-	private attachedComponents: Component[] = []
+	private attachedComponents: IComponent[] = []
 
 	/**
 	 * Constructs a Blockify instance
@@ -62,9 +62,13 @@ export class Blockify implements IBlockify {
 		// Mouse Pressed
 		this.sketch.mouseClicked = () => {
 			this.mouseClicked()
-			for (let i = 0; i < this.attachedComponents.length; i++) {
-				const component: Component = this.attachedComponents[i]
-				component.mouseClicked()
+			// Loop through all the components in reversed order
+			// Note:- The array is reversed so that the topmost element receives the event first
+			let components: IComponent[] = this.attachedComponents.reverse()
+			for (let i = 0; i < components.length; i++) {
+				const component: IComponent = components[i]
+				// If the event belongs to the current component then break the loop
+				if (component.mouseClicked()) break
 			}
 		}
 	}
@@ -94,8 +98,10 @@ export class Blockify implements IBlockify {
 	 */
 	private loop() {
 		this.sketch.background(0)
+		// Loop through all the components to render
+		// Note:- This way the last member of array will be the topmost component on the canvas
 		for (let i = 0; i < this.attachedComponents.length; i++) {
-			const component: Component = this.attachedComponents[i]
+			const component: IComponent = this.attachedComponents[i]
 			component.render()
 		}
 	}
@@ -116,7 +122,7 @@ export class Blockify implements IBlockify {
 	 * Attachs a component to the blockify app
 	 * @param component The component to be added
 	 */
-	public attachComponent(component: Component): void {
+	public attachComponent(component: IComponent): void {
 		// Attach the sketch and plotter
 		component.attachSketch(this.sketch, this.plotter)
 		// Add the component to attached components array

@@ -11,7 +11,7 @@ export interface IComponentBase {
 // Inteface for Components
 export interface IComponent extends IComponentBase {
 	render(): void
-	mouseClicked(): void
+	mouseClicked(): boolean
 }
 
 // Component class
