@@ -3,6 +3,7 @@
 import p5 from 'p5'
 import { Vector } from './Vector'
 import { Color } from './Colors'
+import { IBorder } from './Border'
 
 // Interface for Plotter class
 export interface IPlotter {
@@ -21,6 +22,7 @@ export interface IPlotter {
 	 */
 
 	useColor(color: Color): void
+	useBorder(border: IBorder): void
 
 }
 
@@ -91,11 +93,31 @@ export class Plotter implements IPlotter {
 	 */
 
 	/**
-	 * Sets the color to use for renderinf
+	 * Sets the color to use for rendering
 	 * @param color The color to set
 	 */
 	public useColor(color: Color) {
 		this.sketch.fill(color.r, color.g, color.b)
+	}
+	
+	/**
+	 * Sets the border to use for borders
+	 * @param border The border to set
+	 */
+	public useBorder(border: IBorder): void {
+		if (border.color === null && border.size === null) {
+			//// If border is set to NoBorder
+			// Set the default border config so that after enabling again it is normal only
+			this.sketch.strokeWeight(1)
+			this.sketch.stroke(0)
+			// Disable borders
+			this.sketch.noStroke()
+		} else if (border.color !== null && border.size !== null) {
+			// Set the new border color
+			this.sketch.stroke(border.color.r, border.color.g, border.color.b)
+			// Set the new border size
+			this.sketch.strokeWeight(border.size)
+		}
 	}
 
 }
