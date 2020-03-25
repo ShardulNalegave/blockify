@@ -2,6 +2,8 @@
 // Imports
 import p5 from 'p5'
 import { Blockify } from "./Blockify"
+import { Block } from './Block'
+import { Vector } from './utils/Vector'
 
 // Global variables
 let screenDimensions = {
@@ -22,6 +24,10 @@ function main(p: p5) {
 	window.addEventListener("resize", () => {
 		blockify.updateCanvasSize(window.innerWidth, window.innerHeight)
 	})
+
+	// Blocks
+	let block = new Block(new Vector(200, 200), new Vector(100, 100))
+	blockify.addBlock(block)
 
 	// Run the render loop
 	blockify.render()

@@ -3,6 +3,7 @@
 import p5 from 'p5'
 import { Vector } from './utils/Vector'
 import { Plotter } from './utils/Plotter'
+import { Block } from './Block'
 
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
@@ -28,6 +29,7 @@ export class Blockify implements IBlockify {
 	private size: Vector = new Vector(300, 300)
 	private parent: HTMLElement | undefined
 	private plotter: Plotter
+	private blocks: Block[] = []
 
 	/**
 	 * Constructs a Blockify instance
@@ -88,6 +90,9 @@ export class Blockify implements IBlockify {
 	 */
 	private loop() {
 		this.sketch.background(0)
+		this.blocks.forEach(block => {
+			block.render()
+		})
 	}
 
 
@@ -96,5 +101,11 @@ export class Blockify implements IBlockify {
 	 */
 
 	private mouseClicked(): void {}
+
+
+	public addBlock(block: Block): void {
+		block.attachPlotter(this.plotter)
+		this.blocks.push(block)
+	}
 
 }
