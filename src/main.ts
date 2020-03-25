@@ -1,9 +1,10 @@
 
 // Imports
 import p5 from 'p5'
-import { Blockify } from "./Blockify"
+import { Blockify, BackgroundDesigns } from "./Blockify"
 import { Vector } from './utils/Vector'
 import { StartBlock } from './blocks/Start'
+import { Colors } from './utils/Colors'
 
 // Global variables
 let screenDimensions = {
@@ -17,7 +18,10 @@ function main(p: p5) {
 	const blockify: Blockify = new Blockify(p, {
 		width: screenDimensions.width,
 		height: screenDimensions.height,
-		parent: appDiv
+		parent: appDiv,
+		backgroundColor: Colors.Grey[900],
+		backgroundDesign: BackgroundDesigns.Dots,
+		dotsColor: Colors.Grey[400]
 	})
 
 	// Window events

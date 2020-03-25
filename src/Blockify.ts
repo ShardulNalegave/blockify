@@ -2,14 +2,21 @@
 // Utils
 import p5 from 'p5'
 import { Vector } from './utils/Vector'
+import { Color, Colors } from './utils/Colors'
 import { Plotter } from './utils/Plotter'
 import { Block } from './blocks/Block'
+
+// Background design types enum
+export enum BackgroundDesigns { Dots, Clean }
 
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
 	width: number,
 	height: number,
-	parent?: HTMLElement
+	parent?: HTMLElement,
+	backgroundColor?: Color,
+	backgroundDesign?: BackgroundDesigns,
+	dotsColor?: Color
 }
 
 // Interface for main Blockify class
@@ -29,6 +36,9 @@ export class Blockify implements IBlockify {
 	private size: Vector = new Vector(300, 300)
 	private parent: HTMLElement | undefined
 	private plotter: Plotter
+	private backgroundColor: Color
+	private backgroundDesign: BackgroundDesigns
+	private dotsColor: Color
 	private blocks: Block[] = []
 
 	/**
@@ -46,6 +56,15 @@ export class Blockify implements IBlockify {
 		} = options
 		this.size = new Vector(width, height)
 		this.parent = parent
+
+		// Set background color
+		this.backgroundColor = options.backgroundColor || Colors.Black
+
+		// Set background design
+		this.backgroundDesign = options.backgroundDesign || BackgroundDesigns.Clean
+
+		// Other options
+		this.dotsColor = options.dotsColor || Colors.Grey[600]
 		
 		// Register sketch events to local methods
 		this.sketch.setup = () => {
@@ -104,7 +123,23 @@ export class Blockify implements IBlockify {
 	 * The render loop
 	 */
 	private loop() {
-		this.sketch.background(0)
+		// Set the background color
+		this.sketch.background(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
+
+		// Create the background design
+		if (this.backgroundDesign === BackgroundDesigns.Dots) {
+			let cols: number = this.sketch.width / 20
+			let rows: number = this.sketch.height / 20
+			for (let y: number = 0; y < rows; y++) {
+				for (let x: number = 0; x < cols; x++) {
+					this.sketch.noStroke()
+					this.sketch.fill(this.dotsColor.r, this.dotsColor.g, this.dotsColor.b)
+					this.sketch.ellipse(x * 20, y * 20, 10, 10)
+				}
+			}
+		}
+
+		// Render the blocks
 		this.blocks.forEach(block => {
 			block.render()
 		})
