@@ -10,6 +10,9 @@ export interface IBlock {
 	plotter: Plotter
 	corner: Vector
 	scale: Vector
+	attachPlotter(plotter: Plotter): void
+	render(): void
+	mouseClicked(): void
 }
 
 // Block class
@@ -33,6 +36,10 @@ export class Block {
 			this.plotter.useColor(Colors.White)
 			this.plotter.rectangle(this.corner, this.scale, 10)
 		}
+	}
+
+	public mouseClicked(): void {
+		console.log("abc...")
 	}
 
 }

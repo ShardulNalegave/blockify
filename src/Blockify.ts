@@ -62,6 +62,9 @@ export class Blockify implements IBlockify {
 		// Mouse Pressed
 		this.sketch.mouseClicked = () => {
 			this.mouseClicked()
+			this.blocks.forEach(block => {
+				block.mouseClicked()
+			})
 		}
 	}
 
