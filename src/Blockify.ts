@@ -6,8 +6,8 @@ import { Color, Colors } from './utils/Colors'
 import { Plotter } from './utils/Plotter'
 import { Block } from './blocks/Block'
 
-// Background design types enum
-export enum BackgroundDesigns { Dots, Clean }
+// Designs for canvas background
+type BackgroundDesigns = "dots" | "clean"
 
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
@@ -61,7 +61,7 @@ export class Blockify implements IBlockify {
 		this.backgroundColor = options.backgroundColor || Colors.Black
 
 		// Set background design
-		this.backgroundDesign = options.backgroundDesign || BackgroundDesigns.Clean
+		this.backgroundDesign = options.backgroundDesign || "clean"
 
 		// Other options
 		this.dotsColor = options.dotsColor || Colors.Grey[600]
@@ -127,14 +127,15 @@ export class Blockify implements IBlockify {
 		this.sketch.background(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
 
 		// Create the background design
-		if (this.backgroundDesign === BackgroundDesigns.Dots) {
-			let cols: number = this.sketch.width / 20
-			let rows: number = this.sketch.height / 20
+		if (this.backgroundDesign === "dots") {
+			let scale = 15
+			let cols: number = this.sketch.width / scale
+			let rows: number = this.sketch.height / scale
 			for (let y: number = 0; y < rows; y++) {
 				for (let x: number = 0; x < cols; x++) {
 					this.sketch.noStroke()
 					this.sketch.fill(this.dotsColor.r, this.dotsColor.g, this.dotsColor.b)
-					this.sketch.ellipse(x * 20, y * 20, 10, 10)
+					this.sketch.ellipse(x * scale, y * scale, 5, 5)
 				}
 			}
 		}

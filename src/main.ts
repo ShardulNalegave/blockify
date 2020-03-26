@@ -1,7 +1,7 @@
 
 // Imports
 import p5 from 'p5'
-import { Blockify, BackgroundDesigns } from "./Blockify"
+import { Blockify } from "./Blockify"
 import { Vector } from './utils/Vector'
 import { StartBlock } from './blocks/Start'
 import { Colors } from './utils/Colors'
@@ -20,7 +20,7 @@ function main(p: p5) {
 		height: screenDimensions.height,
 		parent: appDiv,
 		backgroundColor: Colors.Grey[900],
-		backgroundDesign: BackgroundDesigns.Dots,
+		backgroundDesign: "dots",
 		dotsColor: Colors.Grey[400]
 	})
 
