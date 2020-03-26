@@ -13,7 +13,7 @@ type BackgroundDesigns = "dots" | "clean"
 export interface IBlockifyOptions {
 	width: number,
 	height: number,
-	parent?: HTMLElement,
+	parent: HTMLElement,
 	primaryColor?: Color,
 	accentColor?: Color
 	backgroundDesign?: BackgroundDesigns,
@@ -34,7 +34,7 @@ export class Blockify implements IBlockify {
 
 	private sketch: p5
 	private size: Vector = new Vector(300, 300)
-	private parent: HTMLElement | undefined
+	private parent: HTMLElement
 	private plotter: Plotter
 	private primaryColor: Color
 	private accentColor: Color
@@ -156,9 +156,10 @@ export class Blockify implements IBlockify {
 	 */
 	public render() {
 		let canvas = this.sketch.createCanvas(this.size.x, this.size.y)
-		if (this.parent) {
-			canvas.parent(this.parent)
-		}
+		canvas.parent(this.parent)
+		this.parent.addEventListener("contextmenu", (e: Event) => {
+			e.preventDefault()
+		})
 	}
 
 	/**
