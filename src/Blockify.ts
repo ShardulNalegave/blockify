@@ -14,9 +14,9 @@ export interface IBlockifyOptions {
 	width: number,
 	height: number,
 	parent?: HTMLElement,
-	backgroundColor?: Color,
+	primaryColor?: Color,
+	accentColor?: Color
 	backgroundDesign?: BackgroundDesigns,
-	dotsColor?: Color
 }
 
 // Interface for main Blockify class
@@ -36,9 +36,9 @@ export class Blockify implements IBlockify {
 	private size: Vector = new Vector(300, 300)
 	private parent: HTMLElement | undefined
 	private plotter: Plotter
-	private backgroundColor: Color
+	private primaryColor: Color
+	private accentColor: Color
 	private backgroundDesign: BackgroundDesigns
-	private dotsColor: Color
 	private blocks: Block[] = []
 
 	// Properties to handle dragging of blocks
@@ -68,14 +68,10 @@ export class Blockify implements IBlockify {
 		this.size = new Vector(width, height)
 		this.parent = parent
 
-		// Set background color
-		this.backgroundColor = options.backgroundColor || Colors.Black
-
-		// Set background design
+		// Set the passed options
+		this.primaryColor = options.primaryColor || Colors.Black
+		this.accentColor = options.accentColor || Colors.Grey[600]
 		this.backgroundDesign = options.backgroundDesign || "clean"
-
-		// Other options
-		this.dotsColor = options.dotsColor || Colors.Grey[600]
 		
 		// Register sketch events to local methods
 		this.sketch.setup = () => {
@@ -170,7 +166,7 @@ export class Blockify implements IBlockify {
 	 */
 	private loop() {
 		// Set the background color
-		this.sketch.background(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
+		this.sketch.background(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b)
 
 		// Create the background design
 		if (this.backgroundDesign === "dots") {
@@ -180,7 +176,7 @@ export class Blockify implements IBlockify {
 			for (let y: number = 0; y < rows; y++) {
 				for (let x: number = 0; x < cols; x++) {
 					this.sketch.noStroke()
-					this.sketch.fill(this.dotsColor.r, this.dotsColor.g, this.dotsColor.b)
+					this.sketch.fill(this.accentColor.r, this.accentColor.g, this.accentColor.b)
 					this.sketch.ellipse((x * scale) + 2.5, (y * scale) + 2.5, 2.5, 2.5)
 				}
 			}
@@ -197,16 +193,16 @@ export class Blockify implements IBlockify {
 		this.sketch.translate(this.sketch.width - 50, this.sketch.height - 50)
 		// Button circle
 		this.sketch.noStroke()
-		this.sketch.fill(this.dotsColor.r, this.dotsColor.g, this.dotsColor.b)
+		this.sketch.fill(this.accentColor.r, this.accentColor.g, this.accentColor.b)
 		this.sketch.ellipse(0, 0, 60, 60)
 		// Horizontal line for plus sign
 		this.sketch.noStroke()
-		this.sketch.fill(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
+		this.sketch.fill(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b)
 		this.sketch.rectMode(this.sketch.CENTER)
 		this.sketch.rect(0, 0, 30, 10, 10)
 		// Vertical line for plus sign
 		this.sketch.noStroke()
-		this.sketch.fill(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
+		this.sketch.fill(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b)
 		this.sketch.rectMode(this.sketch.CENTER)
 		this.sketch.rect(0, 0, 10, 30, 10)
 		this.sketch.pop()
@@ -217,11 +213,11 @@ export class Blockify implements IBlockify {
 		this.sketch.translate(this.sketch.width - 120, this.sketch.height - 50)
 		// Button circle
 		this.sketch.noStroke()
-		this.sketch.fill(this.dotsColor.r, this.dotsColor.g, this.dotsColor.b)
+		this.sketch.fill(this.accentColor.r, this.accentColor.g, this.accentColor.b)
 		this.sketch.ellipse(0, 0, 60, 60)
 		// Vertical line for plus sign
 		this.sketch.noStroke()
-		this.sketch.fill(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
+		this.sketch.fill(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b)
 		this.sketch.rectMode(this.sketch.CENTER)
 		this.sketch.rect(0, 0, 30, 10, 10)
 		this.sketch.pop()

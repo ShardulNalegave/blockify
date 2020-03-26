@@ -19,9 +19,9 @@ function main(p: p5) {
 		width: screenDimensions.width,
 		height: screenDimensions.height,
 		parent: appDiv,
-		backgroundColor: Colors.Grey[900],
-		backgroundDesign: "dots",
-		dotsColor: Colors.Grey[400]
+		primaryColor: Colors.Grey[900],
+		accentColor: Colors.Grey[400],
+		backgroundDesign: "dots"
 	})
 
 	// Window events
