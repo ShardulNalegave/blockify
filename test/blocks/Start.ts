@@ -1,8 +1,9 @@
 
 // Imports
-import { Block } from '../Block'
-import { Vector } from './../utils/Vector'
-import { Colors } from './../utils/Colors'
+import { Block } from '../../src/Block'
+import { Vector } from '../../src/utils/Vector'
+import { Colors, Color } from '../../src/utils/Colors'
+import { Border } from '../../src/utils/Border'
 
 // Start Block class
 export class StartBlock extends Block {
@@ -12,6 +13,8 @@ export class StartBlock extends Block {
 	 */
 
 	public borderRadius: number = 10
+	public border: Border = new Border(Colors.Black, 3)
+	public color: Color = Colors.White
 
 	/**
 	 * Constructs a StartBlock instance
@@ -27,7 +30,8 @@ export class StartBlock extends Block {
 	 */
 	public render() {
 		if (this.plotter) {
-			this.plotter.useColor(Colors.White)
+			this.plotter.useColor(this.color)
+			this.plotter.useBorder(this.border)
 			this.plotter.rectangle(this.corner, this.scale, this.borderRadius)
 		}
 	}

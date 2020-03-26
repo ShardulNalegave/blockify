@@ -1,10 +1,10 @@
 
 // Imports
 import p5 from 'p5'
-import { Blockify } from "./Blockify"
-import { Vector } from './utils/Vector'
+import { Blockify } from "../src/Blockify"
+import { Vector } from '../src/utils/Vector'
 import { StartBlock } from './blocks/Start'
-import { Colors } from './utils/Colors'
+import { Colors } from '../src/utils/Colors'
 
 // Global variables
 let screenDimensions = {
