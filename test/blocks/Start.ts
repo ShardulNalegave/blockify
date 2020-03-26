@@ -14,7 +14,7 @@ export class StartBlock extends Block {
 
 	public borderRadius: number = 10
 	public border: Border = new Border(Colors.Black, 1)
-	public focusedBorder: Border = new Border(Colors.Red[500], 3)
+	public focusedBorder: Border = new Border(Colors.Black, 3)
 	public color: Color = Colors.White
 
 	/**

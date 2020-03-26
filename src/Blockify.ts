@@ -94,8 +94,10 @@ export class Blockify implements IBlockify {
 			for (let i = 0; i < this.blocks.length; i++) {
 				const block = this.blocks[i];
 				if (block.isCursorAbove(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
+					// If the cursor is above the block
 					block.focused()
 				} else {
+					// If the cursor is not above the block
 					block.unfocused()
 				}
 			}
