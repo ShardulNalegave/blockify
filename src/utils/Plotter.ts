@@ -104,7 +104,7 @@ export class Plotter implements IPlotter {
 	 * @param radius The radius of the ellipse
 	 * @param radius2 Optional radius for y-axis (by default both are equal)
 	 */
-	public ellipse(origin: Vector, radius: number, radius2: number): void {
+	public ellipse(origin: Vector, radius: number, radius2?: number): void {
 		// Shift the origin
 		this.withOrigin(origin, (sketch: p5) => {
 			if (radius2) {

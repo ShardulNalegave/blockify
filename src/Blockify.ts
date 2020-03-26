@@ -221,6 +221,32 @@ export class Blockify implements IBlockify {
 		this.sketch.rectMode(this.sketch.CENTER)
 		this.sketch.rect(0, 0, 30, 10, 10)
 		this.sketch.pop()
+
+		//// Bin icon
+		// Rect 1 (container)
+		this.sketch.push()
+		this.sketch.translate(this.sketch.width - 50, this.sketch.height - 150)
+		this.sketch.noStroke()
+		this.sketch.fill(this.accentColor.r, this.accentColor.g, this.accentColor.b)
+		this.sketch.rectMode(this.sketch.CENTER)
+		this.sketch.rect(0, 0, 60, 80, 5)
+		this.sketch.pop()
+		// Rect 2 (lid)
+		this.sketch.push()
+		this.sketch.translate(this.sketch.width - 50, this.sketch.height - 205)
+		this.sketch.noStroke()
+		this.sketch.fill(this.accentColor.r, this.accentColor.g, this.accentColor.b)
+		this.sketch.rectMode(this.sketch.CENTER)
+		this.sketch.rect(0, 0, 60, 20, 5)
+		this.sketch.pop()
+		// Rect 3 (lid handle)
+		this.sketch.push()
+		this.sketch.translate(this.sketch.width - 50, this.sketch.height - 215)
+		this.sketch.noStroke()
+		this.sketch.fill(this.accentColor.r, this.accentColor.g, this.accentColor.b)
+		this.sketch.rectMode(this.sketch.CENTER)
+		this.sketch.rect(0, 0, 15, 10, 2.5)
+		this.sketch.pop()
 	}
 
 
