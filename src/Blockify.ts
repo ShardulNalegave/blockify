@@ -168,7 +168,7 @@ export class Blockify implements IBlockify {
 
 		// Create the background design
 		if (this.backgroundDesign === "dots") {
-			let scale = 15
+			let scale = 30
 			let cols: number = this.sketch.width / scale
 			let rows: number = this.sketch.height / scale
 			for (let y: number = 0; y < rows; y++) {

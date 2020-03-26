@@ -24,6 +24,7 @@ export interface IPlotter {
 
 	triangle(a: Vector, b: Vector, c: Vector): void
 	rectangle(corner: Vector, scale: Vector, borderRadius: number): void
+	ellipse(origin: Vector, radius: number, radius2?: number): void
 
 	text(text: string, options: ITextOptions): void
 
@@ -94,6 +95,25 @@ export class Plotter implements IPlotter {
 			sketch.rectMode(sketch.CORNER)
 			// Draw the rect at new origin with the given scale
 			sketch.rect(0, 0, scale.x, scale.y, borderRadius)
+		})
+	}
+
+	/**
+	 * Draws an ellipse
+	 * @param origin The origin of the ellipse
+	 * @param radius The radius of the ellipse
+	 * @param radius2 Optional radius for y-axis (by default both are equal)
+	 */
+	public ellipse(origin: Vector, radius: number, radius2: number): void {
+		// Shift the origin
+		this.withOrigin(origin, (sketch: p5) => {
+			if (radius2) {
+				// If 2 radii are provided
+				sketch.ellipse(0, 0, radius, radius2)
+			} else {
+				// If only one radius is provided
+				sketch.ellipse(0, 0, radius, radius)
+			}
 		})
 	}
 
