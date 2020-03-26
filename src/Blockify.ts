@@ -190,6 +190,41 @@ export class Blockify implements IBlockify {
 		this.blocks.forEach(block => {
 			block.render()
 		})
+
+		// Zoom in button
+		this.sketch.push()
+		// Shift origin
+		this.sketch.translate(this.sketch.width - 50, this.sketch.height - 50)
+		// Button circle
+		this.sketch.noStroke()
+		this.sketch.fill(this.dotsColor.r, this.dotsColor.g, this.dotsColor.b)
+		this.sketch.ellipse(0, 0, 60, 60)
+		// Horizontal line for plus sign
+		this.sketch.noStroke()
+		this.sketch.fill(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
+		this.sketch.rectMode(this.sketch.CENTER)
+		this.sketch.rect(0, 0, 30, 10, 10)
+		// Vertical line for plus sign
+		this.sketch.noStroke()
+		this.sketch.fill(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
+		this.sketch.rectMode(this.sketch.CENTER)
+		this.sketch.rect(0, 0, 10, 30, 10)
+		this.sketch.pop()
+
+		// Zoom out button
+		this.sketch.push()
+		// Shift origin
+		this.sketch.translate(this.sketch.width - 120, this.sketch.height - 50)
+		// Button circle
+		this.sketch.noStroke()
+		this.sketch.fill(this.dotsColor.r, this.dotsColor.g, this.dotsColor.b)
+		this.sketch.ellipse(0, 0, 60, 60)
+		// Vertical line for plus sign
+		this.sketch.noStroke()
+		this.sketch.fill(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b)
+		this.sketch.rectMode(this.sketch.CENTER)
+		this.sketch.rect(0, 0, 30, 10, 10)
+		this.sketch.pop()
 	}
 
 
