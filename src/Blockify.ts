@@ -95,6 +95,8 @@ export class Blockify implements IBlockify {
 				const block = this.blocks[i];
 				if (block.isCursorAbove(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
 					block.focused()
+				} else {
+					block.unfocused()
 				}
 			}
 		}

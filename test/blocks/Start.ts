@@ -13,7 +13,8 @@ export class StartBlock extends Block {
 	 */
 
 	public borderRadius: number = 10
-	public border: Border = new Border(Colors.Black, 3)
+	public border: Border = new Border(Colors.Black, 1)
+	public focusedBorder: Border = new Border(Colors.Red[500], 3)
 	public color: Color = Colors.White
 
 	/**
@@ -21,8 +22,8 @@ export class StartBlock extends Block {
 	 * @param corner The location of top-left corner
 	 * @param scale Vector telling width and height of the block
 	 */
-	public constructor(corner: Vector, scale: Vector) {
-		super(corner, scale)
+	public constructor(corner: Vector, scale: Vector, autoFocus?: boolean) {
+		super(corner, scale, autoFocus)
 	}
 
 	/**
@@ -31,7 +32,7 @@ export class StartBlock extends Block {
 	public render() {
 		if (this.plotter) {
 			this.plotter.useColor(this.color)
-			this.plotter.useBorder(this.border)
+			this.plotter.useBorder(this.isFocused ? this.focusedBorder : this.border)
 			this.plotter.rectangle(this.corner, this.scale, this.borderRadius)
 		}
 	}

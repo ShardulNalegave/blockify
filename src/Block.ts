@@ -8,9 +8,11 @@ export interface IBlock {
 	plotter: Plotter | null
 	corner: Vector
 	scale: Vector
+	isFocused: boolean
 	attachPlotter(plotter: Plotter): void
 	render(): void
 	focused(): void
+	unfocused(): void
 	updatePos(change: Vector): void
 	isCursorAbove(cursor: Vector): boolean
 }
@@ -25,15 +27,17 @@ export class Block implements IBlock {
 	public plotter: Plotter | null = null
 	public corner: Vector
 	public scale: Vector
+	public isFocused: boolean = false
 
 	/**
 	 * Constructs a new Block instance
 	 * @param corner The location of top-left corner
 	 * @param scale A Vector telling the width and height of the block
 	 */
-	public constructor(corner: Vector, scale: Vector) {
+	public constructor(corner: Vector, scale: Vector, autoFocus?: boolean) {
 		this.corner = corner
 		this.scale = scale
+		this.isFocused = autoFocus || false
 	}
 
 	/**
@@ -46,7 +50,10 @@ export class Block implements IBlock {
 
 	public render(): void {}
 	public focused(): void {
-		//
+		this.isFocused = true
+	}
+	public unfocused(): void {
+		this.isFocused = false
 	}
 
 	/**

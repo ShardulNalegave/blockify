@@ -30,7 +30,7 @@ function main(p: p5) {
 	})
 
 	// Blocks
-	let block = new StartBlock(new Vector(200, 200), new Vector(100, 100))
+	let block = new StartBlock(new Vector(200, 200), new Vector(200, 200))
 	blockify.addBlock(block)
 
 	// Run the render loop
