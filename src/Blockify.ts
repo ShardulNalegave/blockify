@@ -4,7 +4,7 @@ import p5 from 'p5'
 import { Vector } from './utils/Vector'
 import { Color, Colors } from './utils/Colors'
 import { Plotter } from './utils/Plotter'
-import { Block } from './blocks/Block'
+import { Block } from './Block'
 
 // Designs for canvas background
 type BackgroundDesigns = "dots" | "clean"
@@ -40,6 +40,17 @@ export class Blockify implements IBlockify {
 	private backgroundDesign: BackgroundDesigns
 	private dotsColor: Color
 	private blocks: Block[] = []
+
+	// Properties to handle dragging of blocks
+	private dragProperties: {
+		isDragging: boolean,
+		currentlyDragging: Block | null,
+		holdDistanceFromCorner: Vector | null
+	} = {
+		isDragging: false,
+		currentlyDragging: null,
+		holdDistanceFromCorner: null
+	}
 
 	/**
 	 * Constructs a Blockify instance
@@ -82,20 +93,39 @@ export class Blockify implements IBlockify {
 		this.sketch.mouseClicked = () => {
 			for (let i = 0; i < this.blocks.length; i++) {
 				const block = this.blocks[i];
-				if (block.mouseClicked(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
-					break
+				if (block.isCursorAbove(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
+					block.focused()
 				}
 			}
 		}
 
 		// Mouse Dragged
 		this.sketch.mouseDragged = () => {
-			for (let i = 0; i < this.blocks.length; i++) {
-				const block = this.blocks[i];
-				if (block.mouseDragged(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
-					break
+			if (this.dragProperties.isDragging && this.dragProperties.holdDistanceFromCorner) {
+				let change: Vector = (new Vector(this.sketch.mouseX, this.sketch.mouseY)).add(this.dragProperties.holdDistanceFromCorner)
+				if (this.dragProperties.currentlyDragging) {
+					this.dragProperties.currentlyDragging.updatePos(change)
+				}
+			} else {
+				let mouseLoc: Vector = new Vector(this.sketch.mouseX, this.sketch.mouseY)
+				for (let i = 0; i < this.blocks.length; i++) {
+					const block = this.blocks[i];
+					if (block.isCursorAbove(mouseLoc)) {
+						let dist: Vector = block.corner.minus(mouseLoc)
+						this.dragProperties.holdDistanceFromCorner = dist
+						this.dragProperties.isDragging = true
+						this.dragProperties.currentlyDragging = block
+						break
+					}
 				}
 			}
+		}
+
+		// Mouse Released
+		this.sketch.mouseReleased = () => {
+			this.dragProperties.isDragging = false
+			this.dragProperties.currentlyDragging = null
+			this.dragProperties.holdDistanceFromCorner = null
 		}
 	}
 
@@ -135,7 +165,7 @@ export class Blockify implements IBlockify {
 				for (let x: number = 0; x < cols; x++) {
 					this.sketch.noStroke()
 					this.sketch.fill(this.dotsColor.r, this.dotsColor.g, this.dotsColor.b)
-					this.sketch.ellipse(x * scale, y * scale, 5, 5)
+					this.sketch.ellipse((x * scale) + 2.5, (y * scale) + 2.5, 2.5, 2.5)
 				}
 			}
 		}

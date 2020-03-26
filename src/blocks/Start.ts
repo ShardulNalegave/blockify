@@ -1,6 +1,6 @@
 
 // Imports
-import { Block } from './Block'
+import { Block } from '../Block'
 import { Vector } from './../utils/Vector'
 import { Colors } from './../utils/Colors'
 
@@ -39,7 +39,7 @@ export class StartBlock extends Block {
 	public mouseClicked(cursor: Vector): boolean {
 		// Check if cursor is above this block
 		if (this.isCursorAbove(cursor)) {
-			console.log("Hello, World!")
+			console.log("abc")
 			return true
 		}
 		return false

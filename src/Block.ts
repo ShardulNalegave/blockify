@@ -1,7 +1,7 @@
 
 // Imports
-import { Vector } from '../utils/Vector'
-import { Plotter } from '../utils/Plotter'
+import { Vector } from './utils/Vector'
+import { Plotter } from './utils/Plotter'
 
 // Interface for Block class
 export interface IBlock {
@@ -10,8 +10,8 @@ export interface IBlock {
 	scale: Vector
 	attachPlotter(plotter: Plotter): void
 	render(): void
-	mouseClicked(cursor: Vector): boolean
-	mouseDragged(cursor: Vector): boolean
+	focused(): void
+	updatePos(change: Vector): void
 	isCursorAbove(cursor: Vector): boolean
 }
 
@@ -45,11 +45,8 @@ export class Block implements IBlock {
 	}
 
 	public render(): void {}
-	public mouseClicked(cursor: Vector): boolean {
-		return this.isCursorAbove(cursor)
-	}
-	public mouseDragged(cursor: Vector): boolean {
-		return this.isCursorAbove(cursor)
+	public focused(): void {
+		//
 	}
 
 	/**
@@ -60,7 +57,7 @@ export class Block implements IBlock {
 		// The location of the opposite corner
 		let oppositeCorner: Vector = (this.corner.add(this.scale))
 		// Horizontal position
-		if (cursor.x > this.corner.x && cursor.y < oppositeCorner.x) {
+		if (cursor.x > this.corner.x && cursor.x < oppositeCorner.x) {
 			// Vertical position
 			if (cursor.y > this.corner.y && cursor.y < oppositeCorner.y) {
 				return true
@@ -68,6 +65,10 @@ export class Block implements IBlock {
 			return false
 		}
 		return false
+	}
+
+	public updatePos(change: Vector): void {
+		this.corner = change
 	}
 
 }

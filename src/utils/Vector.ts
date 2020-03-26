@@ -6,6 +6,8 @@ export interface IVector {
 	// The y co-ordinate
 	y: number
 
+	print(): void
+
 	/**
 	 * Operations 
 	 */
@@ -45,6 +47,13 @@ export class Vector implements IVector {
 	public constructor(x: number, y: number) {
 		this.x = x
 		this.y = y
+	}
+
+	/**
+	 * Prints the vector
+	 */
+	public print(): void {
+		console.log(`Vector(${this.x}, ${this.y})`)
 	}
 
 	/**
