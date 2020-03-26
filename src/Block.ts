@@ -67,6 +67,10 @@ export class Block implements IBlock {
 		return false
 	}
 
+	/**
+	 * Updates position of the block
+	 * @param change The new position
+	 */
 	public updatePos(change: Vector): void {
 		this.corner = change
 	}

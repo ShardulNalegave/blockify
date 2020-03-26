@@ -102,19 +102,28 @@ export class Blockify implements IBlockify {
 		// Mouse Dragged
 		this.sketch.mouseDragged = () => {
 			if (this.dragProperties.isDragging && this.dragProperties.holdDistanceFromCorner) {
+				//// If blocks are already being dragged just update the position of the one being dragged
+				// The change will be the current mousePosition plus the original distance from the corner at drag start
 				let change: Vector = (new Vector(this.sketch.mouseX, this.sketch.mouseY)).add(this.dragProperties.holdDistanceFromCorner)
 				if (this.dragProperties.currentlyDragging) {
+					// Update the position
 					this.dragProperties.currentlyDragging.updatePos(change)
 				}
 			} else {
+				//// If dragging has just started
 				let mouseLoc: Vector = new Vector(this.sketch.mouseX, this.sketch.mouseY)
+				// Loop through all blocks to get the target block
 				for (let i = 0; i < this.blocks.length; i++) {
 					const block = this.blocks[i];
+					// Check if it is the target
 					if (block.isCursorAbove(mouseLoc)) {
+						// Distance will be corner minus mouse location
 						let dist: Vector = block.corner.minus(mouseLoc)
+						// Set the properties
 						this.dragProperties.holdDistanceFromCorner = dist
 						this.dragProperties.isDragging = true
 						this.dragProperties.currentlyDragging = block
+						// Break off the loop
 						break
 					}
 				}
@@ -123,6 +132,7 @@ export class Blockify implements IBlockify {
 
 		// Mouse Released
 		this.sketch.mouseReleased = () => {
+			// Reset drag options
 			this.dragProperties.isDragging = false
 			this.dragProperties.currentlyDragging = null
 			this.dragProperties.holdDistanceFromCorner = null
