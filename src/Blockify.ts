@@ -121,6 +121,8 @@ export class Blockify implements IBlockify {
 					const block = this.blocks[i];
 					// Check if it is the target
 					if (block.isCursorAbove(mouseLoc)) {
+						// Trigger the focused event
+						block.focused()
 						// Distance will be corner minus mouse location
 						let dist: Vector = block.corner.minus(mouseLoc)
 						// Set the properties
