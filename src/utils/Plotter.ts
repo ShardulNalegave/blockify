@@ -109,10 +109,10 @@ export class Plotter implements IPlotter {
 		this.withOrigin(origin, (sketch: p5) => {
 			if (radius2) {
 				// If 2 radii are provided
-				sketch.ellipse(0, 0, radius, radius2)
+				sketch.ellipse(0, 0, radius * 2, radius2 * 2)
 			} else {
 				// If only one radius is provided
-				sketch.ellipse(0, 0, radius, radius)
+				sketch.ellipse(0, 0, radius * 2, radius * 2)
 			}
 		})
 	}
