@@ -139,6 +139,12 @@ export class Blockify implements IBlockify {
 			this.dragProperties.currentlyDragging = null
 			this.dragProperties.holdDistanceFromCorner = null
 		}
+
+		// Right-click event
+		this.parent.addEventListener("contextmenu", (e: Event) => {
+			e.preventDefault()
+			console.log("Right Click...")
+		})
 	}
 
 	/**
@@ -157,9 +163,6 @@ export class Blockify implements IBlockify {
 	public render() {
 		let canvas = this.sketch.createCanvas(this.size.x, this.size.y)
 		canvas.parent(this.parent)
-		this.parent.addEventListener("contextmenu", (e: Event) => {
-			e.preventDefault()
-		})
 	}
 
 	/**
