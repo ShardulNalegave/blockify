@@ -124,7 +124,6 @@ export class Plotter implements IPlotter {
 	 */
 	public text(text: string, options: ITextOptions): void {
 		this.withOrigin(options.pos, (sketch: p5) => {
-			sketch.rectMode(sketch.CORNER)
 			sketch.textSize(options.size)
 			if (options.color) {
 				sketch.fill(options.color.r, options.color.g, options.color.b)
@@ -132,9 +131,10 @@ export class Plotter implements IPlotter {
 				sketch.fill(0)
 			}
 			if (options.boxScale) {
-				sketch.text(text, options.pos.x, options.pos.y, options.boxScale.x, options.boxScale.y)
+				sketch.rectMode(sketch.CORNER)
+				sketch.text(text, 0, 0, options.boxScale.x, options.boxScale.y)
 			} else {
-				sketch.text(text, options.pos.x, options.pos.y)
+				sketch.text(text, 0, 0)
 			}
 		})
 	}

@@ -6,6 +6,7 @@ import { Vector } from '../src/utils/Vector'
 import { StartBlock } from './blocks/Start'
 import { Colors } from '../src/utils/Colors'
 import { ContextMenuItem } from '../src/ContextMenu'
+import { Border } from '../src/utils/Border'
 
 // Global variables
 let screenDimensions = {
@@ -24,6 +25,9 @@ function main(p: p5) {
 		accentColor: Colors.Grey[400],
 		backgroundDesign: "dots",
 		contextMenu: {
+			backgroundColor: Colors.Grey[800],
+			textColor: Colors.Grey[400],
+			border: new Border(Colors.Black, 1),
 			canvas: [
 				new ContextMenuItem("Delete")
 			],

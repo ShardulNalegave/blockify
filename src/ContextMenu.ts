@@ -5,7 +5,7 @@ import { Plotter } from "./utils/Plotter";
 import { Colors, Color } from "./utils/Colors";
 import { NoBorder, IBorder } from "./utils/Border";
 import { Block } from "./Block";
-import { Container } from "./ui/Container";
+import { Container, IContainerRenderOptions } from "./ui/Container";
 
 // Interface for Context Menu
 export interface IContextMenu {
@@ -110,7 +110,13 @@ export class ContextMenuItem {
 			color: options.backgroundColor,
 			border: options.border,
 			scale: new Vector(100, 20),
-			render(plotter: Plotter) {}
+			render(plotter: Plotter, renderOptions: IContainerRenderOptions) {
+				plotter.text("ABC", {
+					pos: new Vector(0, 0),
+					size: 15,
+					color: Colors.White
+				})
+			}
 		}).render(plotter)
 	}
 

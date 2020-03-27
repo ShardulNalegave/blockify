@@ -6,6 +6,13 @@ import { Vector } from '../utils/Vector';
 import { Colors, Color } from '../utils/Colors';
 import { IBorder, NoBorder } from '../utils/Border';
 
+// Interface for Container Render Options
+export interface IContainerRenderOptions {
+	offset: Vector
+	width: number
+	height: number
+}
+
 // Interface for options passed to Container
 export interface IContainerOptions {
 	corner: Vector
@@ -14,7 +21,7 @@ export interface IContainerOptions {
 	borderRadius?: number
 	color?: Color
 	border?: IBorder
-	render(plotter: Plotter): void
+	render(plotter: Plotter, options: IContainerRenderOptions): void
 }
 
 // Interface for Container
@@ -53,6 +60,11 @@ export class Container implements IContainer {
 		plotter.useBorder(this.border)
 		plotter.useColor(this.color)
 		plotter.rectangle(this.corner, this.scale)
+		this.options.render(plotter, {
+			height: this.scale.y - (this.padding.top + this.padding.bottom),
+			width: this.scale.x - (this.padding.left + this.padding.right),
+			offset: new Vector(this.corner.x + this.padding.left, this.corner.y + this.padding.top)
+		})
 	}
 
 }
