@@ -11,6 +11,7 @@ export interface IContainerRenderOptions {
 	offset: Vector
 	width: number
 	height: number
+	padding: Padding
 }
 
 // Interface for options passed to Container
@@ -63,7 +64,8 @@ export class Container implements IContainer {
 		this.options.render(plotter, {
 			height: this.scale.y - (this.padding.top + this.padding.bottom),
 			width: this.scale.x - (this.padding.left + this.padding.right),
-			offset: new Vector(this.corner.x + this.padding.left, this.corner.y + this.padding.top)
+			offset: new Vector(this.corner.x + this.padding.left, this.corner.y + this.padding.top),
+			padding: this.padding
 		})
 	}
 

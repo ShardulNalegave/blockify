@@ -26,7 +26,7 @@ function main(p: p5) {
 		backgroundDesign: "dots",
 		contextMenu: {
 			backgroundColor: Colors.Grey[800],
-			textColor: Colors.Grey[400],
+			textColor: Colors.Grey[200],
 			border: new Border(Colors.Black, 1),
 			canvas: [
 				new ContextMenuItem("Delete")
