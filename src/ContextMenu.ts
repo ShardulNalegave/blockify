@@ -8,6 +8,7 @@ import { Block } from "./Block";
 
 // Interface for Context Menu
 export interface IContextMenu {
+	config: ContextMenuConfig
 	show(at: Vector): void
 	hide(): void
 	render(plotter: Plotter, block?: Block): void
@@ -23,11 +24,14 @@ export class ContextMenu implements IContextMenu {
 	private isShowing: boolean = false
 	private at: Vector | null = null
 	private onBlock: Block | undefined = undefined
+	public config: ContextMenuConfig
 
 	/**
 	 * Constructs a ContextMenu instance
 	 */
-	public constructor() {}
+	public constructor(contextMenuConfig: ContextMenuConfig) {
+		this.config = contextMenuConfig
+	}
 
 	/**
 	 * Shows the context menu
@@ -94,4 +98,11 @@ export class ContextMenuItem {
 		//
 	}
 
+}
+
+
+// Interface for Context Menu Config
+export interface ContextMenuConfig {
+	canvas: ContextMenuItem[]
+	block: ContextMenuItem[]
 }

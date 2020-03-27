@@ -5,7 +5,7 @@ import { Vector } from './utils/Vector'
 import { Color, Colors } from './utils/Colors'
 import { Plotter } from './utils/Plotter'
 import { Block } from './Block'
-import { ContextMenu } from './ContextMenu'
+import { ContextMenu, ContextMenuConfig } from './ContextMenu'
 
 // Designs for canvas background
 type BackgroundDesigns = "dots" | "clean"
@@ -15,6 +15,7 @@ export interface IBlockifyOptions {
 	width: number
 	height: number
 	parent: HTMLElement
+	contextMenu: ContextMenuConfig
 	primaryColor?: Color
 	accentColor?: Color
 	backgroundDesign?: BackgroundDesigns
@@ -72,7 +73,7 @@ export class Blockify implements IBlockify {
 		this.parent = parent
 
 		// Init the context menu
-		this.contextMenu = new ContextMenu()
+		this.contextMenu = new ContextMenu(options.contextMenu)
 
 		// Set the passed options
 		this.primaryColor = options.primaryColor || Colors.Black

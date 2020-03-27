@@ -21,7 +21,11 @@ function main(p: p5) {
 		parent: appDiv,
 		primaryColor: Colors.Grey[900],
 		accentColor: Colors.Grey[400],
-		backgroundDesign: "dots"
+		backgroundDesign: "dots",
+		contextMenu: {
+			canvas: [],
+			block: []
+		}
 	})
 
 	// Window events
