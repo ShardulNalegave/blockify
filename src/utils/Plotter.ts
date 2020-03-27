@@ -16,6 +16,9 @@ export interface ITextOptions {
 // Interface for Plotter class
 export interface IPlotter {
 
+	cursorPos: Vector
+	updateCursorPos(pos: Vector): void
+
 	withOrigin(pos: Vector, callback: Function): void
 
 	/**
@@ -44,6 +47,7 @@ export class Plotter implements IPlotter {
 	 * Class Members
 	 */
 	private sketch: p5
+	public cursorPos: Vector = new Vector(0, 0)
 
 	/**
 	 * Constructs a Plotter instance
@@ -51,6 +55,14 @@ export class Plotter implements IPlotter {
 	 */
 	public constructor(sketch: p5) {
 		this.sketch = sketch
+	}
+
+	/**
+	 * Updates cursor position variable
+	 * @param pos The new position
+	 */
+	public updateCursorPos(pos: Vector): void {
+		this.cursorPos = pos
 	}
 
 	/**

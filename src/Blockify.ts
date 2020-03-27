@@ -192,6 +192,10 @@ export class Blockify implements IBlockify {
 	 * The render loop
 	 */
 	private loop() {
+
+		// Update cursor position variable
+		this.plotter.updateCursorPos(new Vector(this.sketch.mouseX, this.sketch.mouseY))
+
 		// Set the background color
 		this.sketch.background(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b)
 

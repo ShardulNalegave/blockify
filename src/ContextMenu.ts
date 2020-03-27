@@ -11,9 +11,9 @@ import { Padding } from "./utils/Padding";
 // Interface for Context Menu
 export interface IContextMenu {
 	config: ContextMenuConfig
-	show(at: Vector): void
+	show(at: Vector, block?: Block): void
 	hide(): void
-	render(plotter: Plotter, block?: Block): void
+	render(plotter: Plotter): void
 }
 
 // Context Menu class
@@ -67,6 +67,7 @@ export class ContextMenu implements IContextMenu {
 					const item = this.config.canvas[i];
 					item.render(plotter, this.at, {
 						backgroundColor: this.config.backgroundColor || Colors.White,
+						hoverBackgroundColor: this.config.hoverBackgroundColor || Colors.White,
 						textColor: this.config.textColor || Colors.Black,
 						border: this.config.border || new NoBorder()
 					})
@@ -101,17 +102,33 @@ export class ContextMenuItem {
 		this.text = text
 	}
 
+	private isCursorOnTop(corner: Vector, cursor: Vector, scale: Vector): boolean {
+		// The location of the opposite corner
+		let oppositeCorner: Vector = (corner.add(scale))
+		// Horizontal position
+		if (cursor.x > corner.x && cursor.x < oppositeCorner.x) {
+			// Vertical position
+			if (cursor.y > corner.y && cursor.y < oppositeCorner.y) {
+				return true
+			}
+			return false
+		}
+		return false
+	}
+
 	public render(plotter: Plotter, corner: Vector, options: {
 		backgroundColor: Color,
+		hoverBackgroundColor: Color,
 		textColor: Color,
 		border: IBorder
 	}): void {
+		let scale: Vector = new Vector(150, 30)
 		new Container({
 			corner,
-			color: options.backgroundColor,
+			color: this.isCursorOnTop(corner, plotter.cursorPos, scale) ? options.hoverBackgroundColor : options.backgroundColor,
 			border: options.border,
 			padding: Padding.all(5),
-			scale: new Vector(150, 30),
+			scale,
 			render: (plotter: Plotter, renderOptions: IContainerRenderOptions) => {
 				plotter.useBorder(new NoBorder())
 				plotter.text(this.text, {
@@ -129,6 +146,7 @@ export class ContextMenuItem {
 // Interface for Context Menu Config
 export interface ContextMenuConfig {
 	backgroundColor?: Color
+	hoverBackgroundColor?: Color
 	textColor?: Color
 	border?: IBorder	
 	canvas: ContextMenuItem[]

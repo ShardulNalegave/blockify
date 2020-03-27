@@ -26,6 +26,7 @@ function main(p: p5) {
 		backgroundDesign: "dots",
 		contextMenu: {
 			backgroundColor: Colors.Grey[800],
+			hoverBackgroundColor: Colors.Grey[600],
 			textColor: Colors.Grey[200],
 			border: new Border(Colors.Black, 1),
 			canvas: [
