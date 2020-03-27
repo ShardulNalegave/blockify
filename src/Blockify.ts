@@ -210,7 +210,7 @@ export class Blockify implements IBlockify {
 
 		// Render the blocks
 		this.blocks.forEach(block => {
-			block.render()
+			block.render(this.plotter)
 		})
 
 		// Zoom in button
@@ -280,7 +280,6 @@ export class Blockify implements IBlockify {
 
 
 	public addBlock(block: Block): void {
-		block.attachPlotter(this.plotter)
 		this.blocks.push(block)
 	}
 

@@ -4,6 +4,7 @@ import { Block } from '../../src/Block'
 import { Vector } from '../../src/utils/Vector'
 import { Colors, Color } from '../../src/utils/Colors'
 import { Border } from '../../src/utils/Border'
+import { Plotter } from '../../src/utils/Plotter'
 
 // Start Block class
 export class StartBlock extends Block {
@@ -29,12 +30,10 @@ export class StartBlock extends Block {
 	/**
 	 * Renders the block
 	 */
-	public render() {
-		if (this.plotter) {
-			this.plotter.useColor(this.color)
-			this.plotter.useBorder(this.isFocused ? this.focusedBorder : this.border)
-			this.plotter.rectangle(this.corner, this.scale, this.borderRadius)
-		}
+	public render(plotter: Plotter) {
+		plotter.useColor(this.color)
+		plotter.useBorder(this.isFocused ? this.focusedBorder : this.border)
+		plotter.rectangle(this.corner, this.scale, this.borderRadius)
 	}
 
 	/**

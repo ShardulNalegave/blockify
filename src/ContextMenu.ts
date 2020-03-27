@@ -65,3 +65,33 @@ export class ContextMenu implements IContextMenu {
 	}
 
 }
+
+
+// Interface for Context Menu Item
+export interface IContextMenuItem {
+	text: string
+	render(): void
+}
+
+// Context Menu Item class
+export class ContextMenuItem {
+
+	/**
+	 * Class Members
+	 */
+
+	public text: string
+
+	/**
+	 * Constructs a Context Menu Item instance
+	 * @param text The text to display
+	 */
+	public constructor(text: string) {
+		this.text = text
+	}
+
+	public render(plotter: Plotter): void {
+		//
+	}
+
+}

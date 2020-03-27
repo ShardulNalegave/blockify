@@ -5,12 +5,10 @@ import { Plotter } from './utils/Plotter'
 
 // Interface for Block class
 export interface IBlock {
-	plotter: Plotter | null
 	corner: Vector
 	scale: Vector
 	isFocused: boolean
-	attachPlotter(plotter: Plotter): void
-	render(): void
+	render(plotter: Plotter): void
 	focused(): void
 	unfocused(): void
 	updatePos(change: Vector): void
@@ -23,8 +21,6 @@ export class Block implements IBlock {
 	/**
 	 * Class Members
 	 */
-
-	public plotter: Plotter | null = null
 	public corner: Vector
 	public scale: Vector
 	public isFocused: boolean = false
@@ -40,15 +36,7 @@ export class Block implements IBlock {
 		this.isFocused = autoFocus || false
 	}
 
-	/**
-	 * Attachs the plotter object to this block
-	 * @param plotter The Plotter object to be used
-	 */
-	public attachPlotter(plotter: Plotter) {
-		this.plotter = plotter
-	}
-
-	public render(): void {}
+	public render(plotter: Plotter): void {}
 	public focused(): void {
 		this.isFocused = true
 	}
