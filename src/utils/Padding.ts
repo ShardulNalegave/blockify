@@ -1,7 +1,4 @@
 
-// Imports
-import { Vector } from "./Vector";
-
 // Padding class
 export class Padding {
 

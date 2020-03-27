@@ -135,7 +135,8 @@ export class Plotter implements IPlotter {
 	 * @param options Options for rendering (ITextOptions)
 	 */
 	public text(text: string, options: ITextOptions): void {
-		this.withOrigin(options.pos, (sketch: p5) => {
+		// Change the origin to the position + font-size on y-axis as the rendering starts from bottom
+		this.withOrigin(options.pos.add(new Vector(0, options.size)), (sketch: p5) => {
 			sketch.textSize(options.size)
 			if (options.color) {
 				sketch.fill(options.color.r, options.color.g, options.color.b)

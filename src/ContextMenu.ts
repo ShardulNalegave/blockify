@@ -127,13 +127,13 @@ export class ContextMenuItem {
 			corner,
 			color: this.isCursorOnTop(corner, plotter.cursorPos, scale) ? options.hoverBackgroundColor : options.backgroundColor,
 			border: options.border,
-			padding: Padding.all(5),
+			padding: Padding.all(8),
 			scale,
 			render: (plotter: Plotter, renderOptions: IContainerRenderOptions) => {
 				plotter.useBorder(new NoBorder())
 				plotter.text(this.text, {
-					pos: renderOptions.offset.add(new Vector(0, 15)),
-					size: 13,
+					pos: renderOptions.offset,
+					size: renderOptions.height,
 					color: options.textColor
 				})
 			}

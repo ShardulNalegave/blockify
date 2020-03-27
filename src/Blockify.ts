@@ -98,7 +98,7 @@ export class Blockify implements IBlockify {
 			this.contextMenu.hide()
 			for (let i = 0; i < this.blocks.length; i++) {
 				const block = this.blocks[i];
-				if (block.isCursorAbove(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
+				if (block.isCursorAbove(this.plotter.cursorPos)) {
 					// If the cursor is above the block
 					block.focused()
 				} else {
@@ -113,14 +113,14 @@ export class Blockify implements IBlockify {
 			if (this.dragProperties.isDragging && this.dragProperties.holdDistanceFromCorner) {
 				//// If blocks are already being dragged just update the position of the one being dragged
 				// The change will be the current mousePosition plus the original distance from the corner at drag start
-				let change: Vector = (new Vector(this.sketch.mouseX, this.sketch.mouseY)).add(this.dragProperties.holdDistanceFromCorner)
+				let change: Vector = this.plotter.cursorPos.add(this.dragProperties.holdDistanceFromCorner)
 				if (this.dragProperties.currentlyDragging) {
 					// Update the position
 					this.dragProperties.currentlyDragging.updatePos(change)
 				}
 			} else {
 				//// If dragging has just started
-				let mouseLoc: Vector = new Vector(this.sketch.mouseX, this.sketch.mouseY)
+				let mouseLoc: Vector = this.plotter.cursorPos
 				// Loop through all blocks to get the target block
 				for (let i = 0; i < this.blocks.length; i++) {
 					const block = this.blocks[i];
@@ -156,16 +156,16 @@ export class Blockify implements IBlockify {
 			// Check if cursor is on top of any block
 			for (let i = 0; i < this.blocks.length; i++) {
 				const block = this.blocks[i];
-				if (block.isCursorAbove(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
+				if (block.isCursorAbove(this.plotter.cursorPos)) {
 					// Show the context menu
-					this.contextMenu.show(new Vector(this.sketch.mouseX, this.sketch.mouseY), block)
+					this.contextMenu.show(this.plotter.cursorPos, block)
 					handled = true
 					break
 				}
 			}
 			if (!handled) {
 				// Show the context menu
-				this.contextMenu.show(new Vector(this.sketch.mouseX, this.sketch.mouseY))
+				this.contextMenu.show(this.plotter.cursorPos)
 			}
 		})
 	}
