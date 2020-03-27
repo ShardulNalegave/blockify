@@ -2,8 +2,8 @@
 // Imports
 import { Vector } from "./utils/Vector";
 import { Plotter } from "./utils/Plotter";
-import { Colors } from "./utils/Colors";
-import { NoBorder } from "./utils/Border";
+import { Colors, Color } from "./utils/Colors";
+import { NoBorder, IBorder } from "./utils/Border";
 import { Block } from "./Block";
 import { Container } from "./ui/Container";
 
@@ -64,7 +64,11 @@ export class ContextMenu implements IContextMenu {
 			} else {
 				for (let i = 0; i < this.config.canvas.length; i++) {
 					const item = this.config.canvas[i];
-					item.render(plotter, this.at)
+					item.render(plotter, this.at, {
+						backgroundColor: this.config.backgroundColor || Colors.White,
+						textColor: this.config.textColor || Colors.Black,
+						border: this.config.border || new NoBorder()
+					})
 				}
 			}
 		}
@@ -96,9 +100,15 @@ export class ContextMenuItem {
 		this.text = text
 	}
 
-	public render(plotter: Plotter, corner: Vector): void {
+	public render(plotter: Plotter, corner: Vector, options: {
+		backgroundColor: Color,
+		textColor: Color,
+		border: IBorder
+	}): void {
 		new Container({
 			corner,
+			color: options.backgroundColor,
+			border: options.border,
 			scale: new Vector(100, 20),
 			render(plotter: Plotter) {}
 		}).render(plotter)
@@ -109,6 +119,9 @@ export class ContextMenuItem {
 
 // Interface for Context Menu Config
 export interface ContextMenuConfig {
+	backgroundColor?: Color
+	textColor?: Color
+	border?: IBorder	
 	canvas: ContextMenuItem[]
 	block: ContextMenuItem[]
 }
