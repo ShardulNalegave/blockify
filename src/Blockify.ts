@@ -151,8 +151,21 @@ export class Blockify implements IBlockify {
 		// Right-click event
 		this.parent.addEventListener("contextmenu", (e: Event) => {
 			e.preventDefault()
-			// Show the context menu
-			this.contextMenu.show(new Vector(this.sketch.mouseX, this.sketch.mouseY))
+			let handled: boolean = false
+			// Check if cursor is on top of any block
+			for (let i = 0; i < this.blocks.length; i++) {
+				const block = this.blocks[i];
+				if (block.isCursorAbove(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
+					// Show the context menu
+					this.contextMenu.show(new Vector(this.sketch.mouseX, this.sketch.mouseY), block)
+					handled = true
+					break
+				}
+			}
+			if (!handled) {
+				// Show the context menu
+				this.contextMenu.show(new Vector(this.sketch.mouseX, this.sketch.mouseY))
+			}
 		})
 	}
 
