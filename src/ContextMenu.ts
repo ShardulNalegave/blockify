@@ -5,6 +5,7 @@ import { Plotter } from "./utils/Plotter";
 import { Colors } from "./utils/Colors";
 import { NoBorder } from "./utils/Border";
 import { Block } from "./Block";
+import { Container } from "./ui/Container";
 
 // Interface for Context Menu
 export interface IContextMenu {
@@ -61,9 +62,10 @@ export class ContextMenu implements IContextMenu {
 		if (this.isShowing && this.at) {
 			if (this.onBlock) {
 			} else {
-				plotter.useColor(Colors.White)
-				plotter.useBorder(new NoBorder())
-				plotter.rectangle(this.at, new Vector(100, 200))
+				for (let i = 0; i < this.config.canvas.length; i++) {
+					const item = this.config.canvas[i];
+					item.render(plotter, this.at)
+				}
 			}
 		}
 	}
@@ -74,7 +76,7 @@ export class ContextMenu implements IContextMenu {
 // Interface for Context Menu Item
 export interface IContextMenuItem {
 	text: string
-	render(): void
+	render(plotter: Plotter, corner: Vector): void
 }
 
 // Context Menu Item class
@@ -94,8 +96,12 @@ export class ContextMenuItem {
 		this.text = text
 	}
 
-	public render(plotter: Plotter): void {
-		//
+	public render(plotter: Plotter, corner: Vector): void {
+		new Container({
+			corner,
+			scale: new Vector(100, 20),
+			render(plotter: Plotter) {}
+		}).render(plotter)
 	}
 
 }

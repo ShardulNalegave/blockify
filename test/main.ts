@@ -5,6 +5,7 @@ import { Blockify } from "../src/Blockify"
 import { Vector } from '../src/utils/Vector'
 import { StartBlock } from './blocks/Start'
 import { Colors } from '../src/utils/Colors'
+import { ContextMenuItem } from '../src/ContextMenu'
 
 // Global variables
 let screenDimensions = {
@@ -23,7 +24,9 @@ function main(p: p5) {
 		accentColor: Colors.Grey[400],
 		backgroundDesign: "dots",
 		contextMenu: {
-			canvas: [],
+			canvas: [
+				new ContextMenuItem("Delete")
+			],
 			block: []
 		}
 	})
