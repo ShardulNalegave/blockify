@@ -5,18 +5,19 @@ import { Vector } from './utils/Vector'
 import { Color, Colors } from './utils/Colors'
 import { Plotter } from './utils/Plotter'
 import { Block } from './Block'
+import { ContextMenu } from './ContextMenu'
 
 // Designs for canvas background
 type BackgroundDesigns = "dots" | "clean"
 
 // The interface for the options passed to Blockify during intialization
 export interface IBlockifyOptions {
-	width: number,
-	height: number,
-	parent: HTMLElement,
-	primaryColor?: Color,
+	width: number
+	height: number
+	parent: HTMLElement
+	primaryColor?: Color
 	accentColor?: Color
-	backgroundDesign?: BackgroundDesigns,
+	backgroundDesign?: BackgroundDesigns
 }
 
 // Interface for main Blockify class
@@ -40,6 +41,8 @@ export class Blockify implements IBlockify {
 	private accentColor: Color
 	private backgroundDesign: BackgroundDesigns
 	private blocks: Block[] = []
+
+	private contextMenu: ContextMenu
 
 	// Properties to handle dragging of blocks
 	private dragProperties: {
@@ -68,6 +71,9 @@ export class Blockify implements IBlockify {
 		this.size = new Vector(width, height)
 		this.parent = parent
 
+		// Init the context menu
+		this.contextMenu = new ContextMenu()
+
 		// Set the passed options
 		this.primaryColor = options.primaryColor || Colors.Black
 		this.accentColor = options.accentColor || Colors.Grey[600]
@@ -87,6 +93,8 @@ export class Blockify implements IBlockify {
 
 		// Mouse Pressed
 		this.sketch.mouseClicked = () => {
+			// Stop showing context menu
+			this.contextMenu.hide()
 			for (let i = 0; i < this.blocks.length; i++) {
 				const block = this.blocks[i];
 				if (block.isCursorAbove(new Vector(this.sketch.mouseX, this.sketch.mouseY))) {
@@ -143,7 +151,8 @@ export class Blockify implements IBlockify {
 		// Right-click event
 		this.parent.addEventListener("contextmenu", (e: Event) => {
 			e.preventDefault()
-			console.log("Right Click...")
+			// Show the context menu
+			this.contextMenu.show(new Vector(this.sketch.mouseX, this.sketch.mouseY))
 		})
 	}
 
@@ -251,6 +260,9 @@ export class Blockify implements IBlockify {
 		this.sketch.rectMode(this.sketch.CENTER)
 		this.sketch.rect(0, 0, 15, 10, 2.5)
 		this.sketch.pop()
+
+		// Render the context menu
+		this.contextMenu.render(this.plotter)
 	}
 
 

@@ -32,6 +32,8 @@ function main(p: p5) {
 	// Blocks
 	let block = new StartBlock(new Vector(200, 200), new Vector(100, 100))
 	blockify.addBlock(block)
+	let block2 = new StartBlock(new Vector(400, 400), new Vector(200, 100))
+	blockify.addBlock(block2)
 
 	// Run the render loop
 	blockify.render()
