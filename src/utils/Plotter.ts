@@ -38,6 +38,8 @@ export interface IPlotter {
 	useColor(color: Color): void
 	useBorder(border: IBorder): void
 
+	cursor(type: string): void
+
 }
 
 // Plotter Class
@@ -47,14 +49,16 @@ export class Plotter implements IPlotter {
 	 * Class Members
 	 */
 	private sketch: p5
+	private parent: HTMLElement
 	public cursorPos: Vector = new Vector(0, 0)
 
 	/**
 	 * Constructs a Plotter instance
 	 * @param sketch The sketch to draw on
 	 */
-	public constructor(sketch: p5) {
+	public constructor(sketch: p5, parent: HTMLElement) {
 		this.sketch = sketch
+		this.parent = parent
 	}
 
 	/**
@@ -192,6 +196,14 @@ export class Plotter implements IPlotter {
 			// Set the new border size
 			this.sketch.strokeWeight(border.size)
 		}
+	}
+
+	/**
+	 * Changes cursor type
+	 * @param type The type to set
+	 */
+	public cursor(type: string): void {
+		this.parent.style.cursor = type
 	}
 
 }

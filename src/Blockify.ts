@@ -65,7 +65,6 @@ export class Blockify implements IBlockify {
 	 */
 	public constructor(p5Instance: p5, options: IBlockifyOptions) {
 		this.sketch = p5Instance
-		this.plotter = new Plotter(this.sketch)
 		let {
 			width,
 			height,
@@ -73,6 +72,7 @@ export class Blockify implements IBlockify {
 		} = options
 		this.size = new Vector(width, height)
 		this.parent = parent
+		this.plotter = new Plotter(this.sketch, this.parent)
 
 		// Init the context menu
 		this.contextMenu = new ContextMenu(options.contextMenu)
@@ -205,6 +205,9 @@ export class Blockify implements IBlockify {
 	 * The render loop
 	 */
 	private loop() {
+
+		// Reset cursor to normal
+		this.plotter.cursor("unset")
 
 		// Update cursor position variable
 		this.plotter.updateCursorPos(new Vector(this.sketch.mouseX, this.sketch.mouseY))

@@ -158,9 +158,11 @@ export class ContextMenuItem {
 		index: number
 		totalItems: number
 	}): void {
+		let isHovering: boolean = this.isCursorOnTop(corner, plotter.cursorPos)
+		if (isHovering) plotter.cursor("pointer")
 		new Container({
 			corner,
-			color: this.isCursorOnTop(corner, plotter.cursorPos) ? options.hoverBackgroundColor : options.backgroundColor,
+			color: isHovering ? options.hoverBackgroundColor : options.backgroundColor,
 			border: options.border,
 			padding: Padding.all(8),
 			scale: this.scale,
