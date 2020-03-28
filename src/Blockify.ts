@@ -116,37 +116,40 @@ export class Blockify implements IBlockify {
 
 		// Mouse Dragged
 		this.sketch.mouseDragged = () => {
-			if (this.dragProperties.isDraggingBlock && this.dragProperties.holdDistanceFromCorner) {
-				//// If blocks are already being dragged just update the position of the one being dragged
-				// The change will be the current mousePosition plus the original distance from the corner at drag start
-				let change: Vector = this.plotter.cursorPos.add(this.dragProperties.holdDistanceFromCorner)
-				if (this.dragProperties.currentlyDragging) {
-					// Update the position
-					this.dragProperties.currentlyDragging.updatePos(change)
-				}
-			} else {
-				if (!this.dragProperties.isDragging) {
-					//// If dragging has just started
-					let mouseLoc: Vector = this.plotter.cursorPos
-					// Loop through all blocks to get the target block
-					for (let i = 0; i < this.blocks.length; i++) {
-						const block = this.blocks[i];
-						// Check if it is the target
-						if (block.isCursorAbove(mouseLoc)) {
-							// Trigger the focused event
-							block.focused()
-							// Distance will be corner minus mouse location
-							let dist: Vector = block.corner.minus(mouseLoc)
-							// Set the properties
-							this.dragProperties.holdDistanceFromCorner = dist
-							this.dragProperties.isDraggingBlock = true
-							this.dragProperties.currentlyDragging = block
-							// Break off the loop
-							break
+			// Only for left mouse button
+			if (this.sketch.mouseButton === this.sketch.LEFT) {
+				if (this.dragProperties.isDraggingBlock && this.dragProperties.holdDistanceFromCorner) {
+					//// If blocks are already being dragged just update the position of the one being dragged
+					// The change will be the current mousePosition plus the original distance from the corner at drag start
+					let change: Vector = this.plotter.cursorPos.add(this.dragProperties.holdDistanceFromCorner)
+					if (this.dragProperties.currentlyDragging) {
+						// Update the position
+						this.dragProperties.currentlyDragging.updatePos(change)
+					}
+				} else {
+					if (!this.dragProperties.isDragging) {
+						//// If dragging has just started
+						let mouseLoc: Vector = this.plotter.cursorPos
+						// Loop through all blocks to get the target block
+						for (let i = 0; i < this.blocks.length; i++) {
+							const block = this.blocks[i];
+							// Check if it is the target
+							if (block.isCursorAbove(mouseLoc)) {
+								// Trigger the focused event
+								block.focused()
+								// Distance will be corner minus mouse location
+								let dist: Vector = block.corner.minus(mouseLoc)
+								// Set the properties
+								this.dragProperties.holdDistanceFromCorner = dist
+								this.dragProperties.isDraggingBlock = true
+								this.dragProperties.currentlyDragging = block
+								// Break off the loop
+								break
+							}
 						}
 					}
+					this.dragProperties.isDragging = true
 				}
-				this.dragProperties.isDragging = true
 			}
 		}
 
