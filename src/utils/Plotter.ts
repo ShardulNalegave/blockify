@@ -29,6 +29,7 @@ export interface IPlotter {
 	rectangle(corner: Vector, scale: Vector, borderRadius: number): void
 	ellipse(origin: Vector, radius: number, radius2?: number): void
 
+	line(from: Vector, to: Vector): void
 	text(text: string, options: ITextOptions): void
 
 	/**
@@ -141,6 +142,15 @@ export class Plotter implements IPlotter {
 				sketch.ellipse(0, 0, radius * 2, radius * 2)
 			}
 		})
+	}
+
+	/**
+	 * Draws a line
+	 * @param from From which point
+	 * @param to To which point
+	 */
+	public line(from: Vector, to: Vector): void {
+		this.sketch.line(from.x, from.y, to.x, to.y)
 	}
 
 	/**
