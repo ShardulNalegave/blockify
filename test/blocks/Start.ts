@@ -40,13 +40,8 @@ export class StartBlock extends Block {
 	 * Triggered at mouse click
 	 * @param cursor The location of cursor
 	 */
-	public mouseClicked(cursor: Vector): boolean {
-		// Check if cursor is above this block
-		if (this.isCursorAbove(cursor)) {
-			console.log("abc")
-			return true
-		}
-		return false
+	public focused(): void {
+		console.log("abc")
 	}
 
 }
