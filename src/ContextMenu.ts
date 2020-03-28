@@ -125,13 +125,15 @@ export class ContextMenuItem {
 
 	public text: string
 	public scale: Vector = new Vector(150, 30)
+	public action: Function
 
 	/**
 	 * Constructs a Context Menu Item instance
 	 * @param text The text to display
 	 */
-	public constructor(text: string) {
+	public constructor(text: string, action?: Function) {
 		this.text = text
+		this.action = action || function() {}
 	}
 
 	public isCursorOnTop(corner: Vector, cursor: Vector): boolean {
@@ -175,9 +177,7 @@ export class ContextMenuItem {
 		}).render(plotter)
 	}
 
-	public clicked(): void {
-		console.log(this.text)
-	}
+	public clicked(): void { this.action() }
 
 }
 

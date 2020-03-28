@@ -30,7 +30,9 @@ function main(p: p5) {
 			textColor: Colors.Grey[200],
 			border: new Border(Colors.Black, 1),
 			canvas: [
-				new ContextMenuItem("New"),
+				new ContextMenuItem("New", () => {
+					console.log("Creating a new block...")
+				}),
 				new ContextMenuItem("Zoom in"),
 				new ContextMenuItem("Zoom out")
 			],
