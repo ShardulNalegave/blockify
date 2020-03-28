@@ -17,6 +17,10 @@ export interface ITextOptions {
 export interface IPlotter {
 
 	cursorPos: Vector
+	colors: {
+		readonly accent: Color
+		readonly primary: Color
+	}
 	updateCursorPos(pos: Vector): void
 
 	withOrigin(pos: Vector, callback: Function): void
@@ -52,14 +56,19 @@ export class Plotter implements IPlotter {
 	private sketch: p5
 	private parent: HTMLElement
 	public cursorPos: Vector = new Vector(0, 0)
+	public colors: {
+		accent: Color,
+		primary: Color
+	}
 
 	/**
 	 * Constructs a Plotter instance
 	 * @param sketch The sketch to draw on
 	 */
-	public constructor(sketch: p5, parent: HTMLElement) {
+	public constructor(sketch: p5, parent: HTMLElement, colors: any) {
 		this.sketch = sketch
 		this.parent = parent
+		this.colors = colors
 	}
 
 	/**

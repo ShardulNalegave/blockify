@@ -39,6 +39,9 @@ export class BlockConnector implements IBlockConnector {
 	 * Renders the connection line
 	 * @param plotter Plotter to use for rendering
 	 */
-	public render(plotter: Plotter): void {}
+	public render(plotter: Plotter): void {
+		plotter.useColor(plotter.colors.accent)
+		plotter.line(this.from.connectorLocation, this.to.connectorLocation)
+	}
 
 }
