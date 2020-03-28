@@ -63,6 +63,15 @@ export class ContextMenu implements IContextMenu {
 	public render(plotter: Plotter): void {
 		if (this.isShowing && this.at) {
 			if (this.onBlock) {
+				for (let i = 0; i < this.config.block.length; i++) {
+					const item = this.config.block[i];
+					item.render(plotter, this.at.add(new Vector(0, i * 30)), {
+						backgroundColor: this.config.backgroundColor || Colors.White,
+						hoverBackgroundColor: this.config.hoverBackgroundColor || Colors.White,
+						textColor: this.config.textColor || Colors.Black,
+						border: this.config.border || new NoBorder()
+					})
+				}
 			} else {
 				for (let i = 0; i < this.config.canvas.length; i++) {
 					const item = this.config.canvas[i];

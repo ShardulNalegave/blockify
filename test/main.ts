@@ -31,10 +31,13 @@ function main(p: p5) {
 			border: new Border(Colors.Black, 1),
 			canvas: [
 				new ContextMenuItem("New"),
-				new ContextMenuItem("Change"),
-				new ContextMenuItem("Delete")
+				new ContextMenuItem("Zoom in"),
+				new ContextMenuItem("Zoom out")
 			],
-			block: []
+			block: [
+				new ContextMenuItem("Edit"),
+				new ContextMenuItem("Delete")
+			]
 		}
 	})
 
