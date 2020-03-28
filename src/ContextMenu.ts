@@ -69,7 +69,9 @@ export class ContextMenu implements IContextMenu {
 						backgroundColor: this.config.backgroundColor || Colors.White,
 						hoverBackgroundColor: this.config.hoverBackgroundColor || Colors.White,
 						textColor: this.config.textColor || Colors.Black,
-						border: this.config.border || new NoBorder()
+						border: this.config.border || new NoBorder(),
+						index: i,
+						totalItems: this.config.block.length
 					})
 				}
 			} else {
@@ -79,7 +81,9 @@ export class ContextMenu implements IContextMenu {
 						backgroundColor: this.config.backgroundColor || Colors.White,
 						hoverBackgroundColor: this.config.hoverBackgroundColor || Colors.White,
 						textColor: this.config.textColor || Colors.Black,
-						border: this.config.border || new NoBorder()
+						border: this.config.border || new NoBorder(),
+						index: i,
+						totalItems: this.config.canvas.length
 					})
 				}
 			}
@@ -148,7 +152,9 @@ export class ContextMenuItem {
 		backgroundColor: Color,
 		hoverBackgroundColor: Color,
 		textColor: Color,
-		border: IBorder
+		border: IBorder,
+		index: number
+		totalItems: number
 	}): void {
 		new Container({
 			corner,
@@ -156,6 +162,7 @@ export class ContextMenuItem {
 			border: options.border,
 			padding: Padding.all(8),
 			scale: this.scale,
+			borderRadius: options.index === 0 ? [5, 5, 0, 0] : options.index === (options.totalItems - 1) ? [0, 0, 5, 5] : 0,
 			render: (plotter: Plotter, renderOptions: IContainerRenderOptions) => {
 				plotter.useBorder(new NoBorder())
 				plotter.text(this.text, {

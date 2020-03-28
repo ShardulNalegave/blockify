@@ -100,13 +100,23 @@ export class Plotter implements IPlotter {
 	 * @param corner The position of the top-left corner
 	 * @param scale The width and height of the rectangle
 	 */
-	public rectangle(corner: Vector, scale: Vector, borderRadius: number = 0) {
+	public rectangle(corner: Vector, scale: Vector, borderRadius?: number | number[]) {
 		// Shift the origin to the position of the corner
 		this.withOrigin(corner, (sketch: p5) => {
 			// Set rectMode to Corner so that drawing starts from corner
 			sketch.rectMode(sketch.CORNER)
-			// Draw the rect at new origin with the given scale
-			sketch.rect(0, 0, scale.x, scale.y, borderRadius)
+			if (borderRadius) {
+				if (typeof(borderRadius) === "number") {
+					// Draw the rect at new origin with the given scale
+					sketch.rect(0, 0, scale.x, scale.y, borderRadius)
+				} else {
+					// Draw the rect at new origin with the given scale
+					sketch.rect(0, 0, scale.x, scale.y, borderRadius[0], borderRadius[1], borderRadius[2], borderRadius[3])
+				}
+			} else {
+				// Draw the rect at new origin with the given scale
+				sketch.rect(0, 0, scale.x, scale.y)
+			}
 		})
 	}
 

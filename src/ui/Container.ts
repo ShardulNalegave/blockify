@@ -19,7 +19,7 @@ export interface IContainerOptions {
 	corner: Vector
 	scale: Vector
 	padding?: Padding
-	borderRadius?: number
+	borderRadius?: number | number[]
 	color?: Color
 	border?: IBorder
 	render(plotter: Plotter, options: IContainerRenderOptions): void
@@ -30,7 +30,7 @@ export interface IContainer {
 	corner: Vector
 	scale: Vector
 	padding: Padding
-	borderRadius: number
+	borderRadius: number | number[]
 	color: Color
 	border: IBorder
 	render(plotter: Plotter): void
@@ -44,7 +44,7 @@ export class Container implements IContainer {
 	public color: Color
 	public border: IBorder
 	public padding: Padding
-	public borderRadius: number
+	public borderRadius: number | number[]
 	private options: IContainerOptions
 
 	public constructor(options: IContainerOptions) {
@@ -60,7 +60,7 @@ export class Container implements IContainer {
 	public render(plotter: Plotter): void {
 		plotter.useBorder(this.border)
 		plotter.useColor(this.color)
-		plotter.rectangle(this.corner, this.scale)
+		plotter.rectangle(this.corner, this.scale, this.borderRadius)
 		this.options.render(plotter, {
 			height: this.scale.y - (this.padding.top + this.padding.bottom),
 			width: this.scale.x - (this.padding.left + this.padding.right),
