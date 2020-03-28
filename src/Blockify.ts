@@ -106,7 +106,7 @@ export class Blockify implements IBlockify {
 				const block = this.blocks[i];
 				if (block.isCursorAbove(this.plotter.cursorPos)) {
 					// If the cursor is above the block
-					block.focused()
+					block.focused(this.plotter)
 				} else {
 					// If the cursor is not above the block
 					block.unfocused()
@@ -135,8 +135,6 @@ export class Blockify implements IBlockify {
 							const block = this.blocks[i];
 							// Check if it is the target
 							if (block.isCursorAbove(mouseLoc)) {
-								// Trigger the focused event
-								block.focused()
 								// Distance will be corner minus mouse location
 								let dist: Vector = block.corner.minus(mouseLoc)
 								// Set the properties

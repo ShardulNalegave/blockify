@@ -36,12 +36,12 @@ export class StartBlock extends Block {
 		plotter.rectangle(this.corner, this.scale, this.borderRadius)
 	}
 
-	/**
-	 * Triggered at mouse click
-	 * @param cursor The location of cursor
-	 */
-	public focused(): void {
-		console.log("abc")
-	}
+	// /**
+	//  * Triggered at mouse click
+	//  * @param cursor The location of cursor
+	//  */
+	// public focused(): void {
+	// 	console.log("abc")
+	// }
 
 }
