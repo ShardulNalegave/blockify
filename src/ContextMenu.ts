@@ -14,6 +14,7 @@ export interface IContextMenu {
 	show(at: Vector, block?: Block): void
 	hide(): void
 	render(plotter: Plotter): void
+	isCursorOnTop(cursor: Vector): boolean
 }
 
 // Context Menu class
@@ -23,7 +24,7 @@ export class ContextMenu implements IContextMenu {
 	 * Class Members
 	 */
 
-	private isShowing: boolean = false
+	public isShowing: boolean = false
 	private at: Vector | null = null
 	private onBlock: Block | undefined = undefined
 	public config: ContextMenuConfig
@@ -76,13 +77,30 @@ export class ContextMenu implements IContextMenu {
 		}
 	}
 
+	public isCursorOnTop(cursor: Vector): boolean {
+		if (this.at) {
+			let items: ContextMenuItem[] = this.onBlock ? this.config.block : this.config.canvas
+			for (let i = 0; i < items.length; i++) {
+				const item = items[i];
+				if (item.isCursorOnTop(this.at.add(new Vector(0, i * 30)), cursor)) {
+					item.clicked()
+					return true
+				}
+			}
+		}
+		return false
+	}
+
 }
 
 
 // Interface for Context Menu Item
 export interface IContextMenuItem {
 	text: string
+	scale: Vector
+	isCursorOnTop(corner: Vector, cursor: Vector, scale: Vector): boolean
 	render(plotter: Plotter, corner: Vector): void
+	clicked(): void
 }
 
 // Context Menu Item class
@@ -93,6 +111,7 @@ export class ContextMenuItem {
 	 */
 
 	public text: string
+	public scale: Vector = new Vector(150, 30)
 
 	/**
 	 * Constructs a Context Menu Item instance
@@ -102,9 +121,9 @@ export class ContextMenuItem {
 		this.text = text
 	}
 
-	private isCursorOnTop(corner: Vector, cursor: Vector, scale: Vector): boolean {
+	public isCursorOnTop(corner: Vector, cursor: Vector): boolean {
 		// The location of the opposite corner
-		let oppositeCorner: Vector = (corner.add(scale))
+		let oppositeCorner: Vector = (corner.add(this.scale))
 		// Horizontal position
 		if (cursor.x > corner.x && cursor.x < oppositeCorner.x) {
 			// Vertical position
@@ -122,13 +141,12 @@ export class ContextMenuItem {
 		textColor: Color,
 		border: IBorder
 	}): void {
-		let scale: Vector = new Vector(150, 30)
 		new Container({
 			corner,
-			color: this.isCursorOnTop(corner, plotter.cursorPos, scale) ? options.hoverBackgroundColor : options.backgroundColor,
+			color: this.isCursorOnTop(corner, plotter.cursorPos) ? options.hoverBackgroundColor : options.backgroundColor,
 			border: options.border,
 			padding: Padding.all(8),
-			scale,
+			scale: this.scale,
 			render: (plotter: Plotter, renderOptions: IContainerRenderOptions) => {
 				plotter.useBorder(new NoBorder())
 				plotter.text(this.text, {
@@ -139,6 +157,10 @@ export class ContextMenuItem {
 				})
 			}
 		}).render(plotter)
+	}
+
+	public clicked(): void {
+		console.log(this.text)
 	}
 
 }

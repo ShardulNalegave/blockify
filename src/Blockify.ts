@@ -94,8 +94,12 @@ export class Blockify implements IBlockify {
 
 		// Mouse Pressed
 		this.sketch.mouseClicked = () => {
-			// Stop showing context menu
-			this.contextMenu.hide()
+			if (this.contextMenu.isShowing) {
+				this.contextMenu.isCursorOnTop(this.plotter.cursorPos)
+				// Stop showing context menu
+				this.contextMenu.hide()
+				return
+			}
 			for (let i = 0; i < this.blocks.length; i++) {
 				const block = this.blocks[i];
 				if (block.isCursorAbove(this.plotter.cursorPos)) {
