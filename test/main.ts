@@ -5,10 +5,12 @@ import { Blockify } from "../src/Blockify"
 import { Vector } from '../src/utils/Vector'
 import { Colors } from '../src/utils/Colors'
 import { ContextMenuItem } from '../src/ContextMenu'
-import { Border } from '../src/utils/Border'
+import { Border, NoBorder } from '../src/utils/Border'
 import { EventBlock } from '../src/blocks/Event'
 import { Plotter } from '../src/utils/Plotter'
 import { Block } from '../src/Block'
+import { Container, IContainerRenderOptions } from '../src/ui/Container'
+import { Padding } from '../src/utils/Padding'
 
 // Global variables
 let screenDimensions = {
@@ -55,9 +57,22 @@ function main(p: p5) {
 		connections: 1,
 		render(plotter: Plotter, block: Block) {
 			let borderWidth: number = block.isFocused ? 3 : 1
-			plotter.useBorder(new Border(Colors.Black, borderWidth))
-			plotter.useColor(Colors.White)
-			plotter.rectangle(block.corner, block.scale)
+			new Container({
+				border: new Border(Colors.Black, borderWidth),
+				borderRadius: 10,
+				corner: block.corner,
+				scale: block.scale,
+				color: Colors.White,
+				padding: Padding.all(10),
+				render(plotter: Plotter, renderOptions: IContainerRenderOptions) {
+					plotter.useBorder(new NoBorder())
+					plotter.text("Start", {
+						pos: renderOptions.offset,
+						size: 20,
+						boxScale: new Vector(renderOptions.offset.x, 20)
+					})
+				}
+			}).render(plotter)
 		},
 		focused(block: Block) {},
 		unfocused(block: Block) {}

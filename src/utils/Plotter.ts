@@ -10,7 +10,7 @@ export interface ITextOptions {
 	pos: Vector,
 	size: number,
 	color?: Color,
-	boxScale?: Vector
+	boxScale: Vector
 }
 
 // Interface for Plotter class
