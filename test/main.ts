@@ -54,12 +54,13 @@ function main(p: p5) {
 	let StartBlock: EventBlock = new EventBlock({
 		connections: 1,
 		render(plotter: Plotter, block: Block) {
-			plotter.useBorder(new Border(Colors.Black, 1))
+			let borderWidth: number = block.isFocused ? 3 : 1
+			plotter.useBorder(new Border(Colors.Black, borderWidth))
 			plotter.useColor(Colors.White)
 			plotter.rectangle(block.corner, block.scale)
 		},
-		focused() {},
-		unfocused() {}
+		focused(block: Block) {},
+		unfocused(block: Block) {}
 	})
 
 	// Add the blocks

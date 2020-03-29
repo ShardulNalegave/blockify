@@ -8,8 +8,8 @@ import { Plotter } from "../utils/Plotter";
 export interface IEventBlockConfig {
 	connections: 1 | 2 | 3
 	render(plotter: Plotter, block: Block): void
-	focused(): void
-	unfocused(): void
+	focused(block: Block): void
+	unfocused(block: Block): void
 }
 
 // Interface for Event type blocks
@@ -48,11 +48,11 @@ export class EventBlock implements IEventBlock  {
 		}
 		block.focused = () => {
 			block.isFocused = true
-			this.config.focused()
+			this.config.focused(block)
 		}
 		block.unfocused = () => {
 			block.isFocused = false
-			this.config.unfocused()
+			this.config.unfocused(block)
 		}
 		return block
 	}
