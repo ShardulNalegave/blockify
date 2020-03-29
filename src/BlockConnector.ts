@@ -9,6 +9,7 @@ import { Color } from "./utils/Colors";
 export interface BlockConnection {
 	block: Block
 	connectorLocation: Vector
+	type: "send" | "receive"
 }
 
 // Interface for a Block Connection
