@@ -110,7 +110,7 @@ export class Blockify implements IBlockify {
 					block.focused(this.plotter)
 				} else {
 					// If the cursor is not above the block
-					block.unfocused()
+					block.unfocused(this.plotter)
 				}
 			}
 		}

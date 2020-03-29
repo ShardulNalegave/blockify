@@ -10,7 +10,7 @@ export interface IBlock {
 	isFocused: boolean
 	render(plotter: Plotter): void
 	focused(plotter: Plotter): void
-	unfocused(): void
+	unfocused(plotter: Plotter): void
 	updatePos(change: Vector): void
 	isCursorAbove(cursor: Vector): boolean
 }
@@ -40,7 +40,7 @@ export class Block implements IBlock {
 	public focused(plotter: Plotter): void {
 		this.isFocused = true
 	}
-	public unfocused(): void {
+	public unfocused(plotter: Plotter): void {
 		this.isFocused = false
 	}
 
