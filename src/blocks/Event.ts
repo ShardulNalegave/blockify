@@ -5,33 +5,41 @@ import { Vector } from "../utils/Vector";
 
 // Interface for Event Block config
 export interface IEventBlockConfig {
-	corner: Vector
 	scale: Vector
 	connections: 1 | 2 | 3
-	autoFocus?: boolean
 }
 
 // Interface for Event type blocks
-export interface IEventBlock extends IBlock, IEventBlockConfig {
+export interface IEventBlock {
+	config: IEventBlockConfig
+	create(corner: Vector, autoFocus?: boolean): void
 }
 
 // Event Block Class
-export class EventBlock extends Block implements IEventBlock  {
+export class EventBlock implements IEventBlock  {
 
 	/**
 	 * Class Members
 	 */
 
-	// Number of connections (1-3)
-	public readonly connections: 1 | 2 | 3
+	// Block config
+	public config: IEventBlockConfig
 
 	/**
 	 * Constructs a EventBlock instance
-	 * @param config Config for the block
+	 * @param config Config for the blocks generated of this type
 	 */
 	public constructor(config: IEventBlockConfig) {
-		super(config.corner, config.scale, config.autoFocus)
-		this.connections = config.connections
+		this.config = config
+	}
+
+	/**
+	 * Returns a new instance of a block created using this block type
+	 * @param corner The location of the top-left corner of the new block
+	 * @param autoFocus Should be focused at start or not
+	 */
+	public create(corner: Vector, autoFocus?: boolean): Block {
+		return new Block(corner, this.config.scale, autoFocus)
 	}
 
 }
