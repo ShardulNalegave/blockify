@@ -7,7 +7,7 @@ import { Plotter } from "../utils/Plotter";
 // Interface for Event Block config
 export interface IEventBlockConfig {
 	connections: 1 | 2 | 3
-	render(plotter: Plotter, corner: Vector, scale: Vector): void
+	render(plotter: Plotter, block: Block): void
 	focused(): void
 	unfocused(): void
 }
@@ -44,7 +44,7 @@ export class EventBlock implements IEventBlock  {
 	public create(corner: Vector, scale: Vector, autoFocus?: boolean): Block {
 		let block: Block = new Block(corner, scale, autoFocus)
 		block.render = (plotter: Plotter) => {
-			this.config.render(plotter, corner, scale)
+			this.config.render(plotter, block)
 		}
 		block.focused = () => {
 			block.isFocused = true

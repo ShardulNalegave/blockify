@@ -126,13 +126,14 @@ export class Blockify implements IBlockify {
 					if (this.dragProperties.currentlyDragging) {
 						// Update the position
 						this.dragProperties.currentlyDragging.updatePos(change)
+						this.dragProperties.isDragging = true
 					}
 				} else {
 					if (!this.dragProperties.isDragging) {
 						//// If dragging has just started
-						let mouseLoc: Vector = this.plotter.cursorPos
 						// Loop through all blocks to get the target block
 						for (let i = 0; i < this.blocks.length; i++) {
+							let mouseLoc: Vector = this.plotter.cursorPos
 							const block = this.blocks[i];
 							// Check if it is the target
 							if (block.isCursorAbove(mouseLoc)) {

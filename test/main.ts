@@ -8,6 +8,7 @@ import { ContextMenuItem } from '../src/ContextMenu'
 import { Border } from '../src/utils/Border'
 import { EventBlock } from '../src/blocks/Event'
 import { Plotter } from '../src/utils/Plotter'
+import { Block } from '../src/Block'
 
 // Global variables
 let screenDimensions = {
@@ -52,17 +53,18 @@ function main(p: p5) {
 	// Blocks
 	let StartBlock: EventBlock = new EventBlock({
 		connections: 1,
-		render(plotter: Plotter, corner: Vector, scale: Vector) {
+		render(plotter: Plotter, block: Block) {
 			plotter.useBorder(new Border(Colors.Black, 1))
 			plotter.useColor(Colors.White)
-			plotter.rectangle(corner, scale)
+			plotter.rectangle(block.corner, block.scale)
 		},
 		focused() {},
 		unfocused() {}
 	})
 
 	// Add the blocks
-	blockify.addBlock(StartBlock.create(new Vector(100, 100), new Vector(100, 100)))
+	let block: Block = StartBlock.create(new Vector(100, 100), new Vector(100, 100))
+	blockify.addBlock(block)
 
 	// Run the render loop
 	blockify.render()
