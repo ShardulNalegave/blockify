@@ -6,17 +6,16 @@ import { Plotter } from "../utils/Plotter";
 
 // Interface for Event Block config
 export interface IEventBlockConfig {
-	scale: Vector
 	connections: 1 | 2 | 3
-	render(plotter: Plotter): void
-	focused(plotter: Plotter): void
-	unfocused(plotter: Plotter): void
+	render(plotter: Plotter, corner: Vector, scale: Vector): void
+	focused(): void
+	unfocused(): void
 }
 
 // Interface for Event type blocks
 export interface IEventBlock {
 	config: IEventBlockConfig
-	create(corner: Vector, autoFocus?: boolean): void
+	create(corner: Vector, scale: Vector, autoFocus?: boolean): void
 }
 
 // Event Block Class
@@ -42,11 +41,19 @@ export class EventBlock implements IEventBlock  {
 	 * @param corner The location of the top-left corner of the new block
 	 * @param autoFocus Should be focused at start or not
 	 */
-	public create(corner: Vector, autoFocus?: boolean): Block {
-		let block: Block = new Block(corner, this.config.scale, autoFocus)
-		block.render = this.config.render
-		block.focused = this.config.focused
-		block.unfocused = this.config.unfocused
+	public create(corner: Vector, scale: Vector, autoFocus?: boolean): Block {
+		let block: Block = new Block(corner, scale, autoFocus)
+		block.render = (plotter: Plotter) => {
+			this.config.render(plotter, corner, scale)
+		}
+		block.focused = () => {
+			block.isFocused = true
+			this.config.focused()
+		}
+		block.unfocused = () => {
+			block.isFocused = false
+			this.config.unfocused()
+		}
 		return block
 	}
 

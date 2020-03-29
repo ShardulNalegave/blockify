@@ -9,8 +9,8 @@ export interface IBlock {
 	scale: Vector
 	isFocused: boolean
 	render(plotter: Plotter): void
-	focused(plotter: Plotter): void
-	unfocused(plotter: Plotter): void
+	focused(): void
+	unfocused(): void
 	updatePos(change: Vector): void
 	isCursorAbove(cursor: Vector): boolean
 }
@@ -37,12 +37,8 @@ export class Block implements IBlock {
 	}
 
 	public render(plotter: Plotter): void {}
-	public focused(plotter: Plotter): void {
-		this.isFocused = true
-	}
-	public unfocused(plotter: Plotter): void {
-		this.isFocused = false
-	}
+	public focused(): void { this.isFocused = true }
+	public unfocused(): void { this.isFocused = false }
 
 	/**
 	 * Tells if the cursor is above the block or not

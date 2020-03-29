@@ -3,10 +3,11 @@
 import p5 from 'p5'
 import { Blockify } from "../src/Blockify"
 import { Vector } from '../src/utils/Vector'
-import { StartBlock } from './blocks/Start'
 import { Colors } from '../src/utils/Colors'
 import { ContextMenuItem } from '../src/ContextMenu'
 import { Border } from '../src/utils/Border'
+import { EventBlock } from '../src/blocks/Event'
+import { Plotter } from '../src/utils/Plotter'
 
 // Global variables
 let screenDimensions = {
@@ -49,10 +50,19 @@ function main(p: p5) {
 	})
 
 	// Blocks
-	let block = new StartBlock(new Vector(200, 200), new Vector(100, 100))
-	blockify.addBlock(block)
-	let block2 = new StartBlock(new Vector(400, 400), new Vector(200, 100))
-	blockify.addBlock(block2)
+	let StartBlock: EventBlock = new EventBlock({
+		connections: 1,
+		render(plotter: Plotter, corner: Vector, scale: Vector) {
+			plotter.useBorder(new Border(Colors.Black, 1))
+			plotter.useColor(Colors.White)
+			plotter.rectangle(corner, scale)
+		},
+		focused() {},
+		unfocused() {}
+	})
+
+	// Add the blocks
+	blockify.addBlock(StartBlock.create(new Vector(100, 100), new Vector(100, 100)))
 
 	// Run the render loop
 	blockify.render()
